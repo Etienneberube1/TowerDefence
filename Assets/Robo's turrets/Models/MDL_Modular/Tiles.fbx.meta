@@ -1,0 +1,162 @@
+fileFormatVersion: 2
+guid: f6d0a805b2e98e3418e4d34c6de24516
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Corner_Zneg_Xneg
+    100002: Corner_Zneg_Xpos
+    100004: Corner_Zpos_Xneg
+    100006: Corner_Zpos_Xpos
+    100008: Floor
+    100010: group7
+    100012: InCorner_Zneg_Xneg
+    100014: InCorner_Zneg_Xpos
+    100016: InCorner_Zpos_Xneg
+    100018: InCorner_Zpos_Xpos
+    100020: //RootNode
+    100022: Wall_X_neg
+    100024: Wall_X_pos
+    100026: Wall_Z_neg
+    100028: Wall_Z_pos
+    400000: Corner_Zneg_Xneg
+    400002: Corner_Zneg_Xpos
+    400004: Corner_Zpos_Xneg
+    400006: Corner_Zpos_Xpos
+    400008: Floor
+    400010: group7
+    400012: InCorner_Zneg_Xneg
+    400014: InCorner_Zneg_Xpos
+    400016: InCorner_Zpos_Xneg
+    400018: InCorner_Zpos_Xpos
+    400020: //RootNode
+    400022: Wall_X_neg
+    400024: Wall_X_pos
+    400026: Wall_Z_neg
+    400028: Wall_Z_pos
+    2100000: Wall
+    2100002: Floor2
+    2300000: Corner_Zneg_Xneg
+    2300002: Corner_Zneg_Xpos
+    2300004: Corner_Zpos_Xneg
+    2300006: Corner_Zpos_Xpos
+    2300008: Floor
+    2300010: InCorner_Zneg_Xneg
+    2300012: InCorner_Zneg_Xpos
+    2300014: InCorner_Zpos_Xneg
+    2300016: InCorner_Zpos_Xpos
+    2300018: Wall_X_neg
+    2300020: Wall_X_pos
+    2300022: Wall_Z_neg
+    2300024: Wall_Z_pos
+    3300000: Corner_Zneg_Xneg
+    3300002: Corner_Zneg_Xpos
+    3300004: Corner_Zpos_Xneg
+    3300006: Corner_Zpos_Xpos
+    3300008: Floor
+    3300010: InCorner_Zneg_Xneg
+    3300012: InCorner_Zneg_Xpos
+    3300014: InCorner_Zpos_Xneg
+    3300016: InCorner_Zpos_Xpos
+    3300018: Wall_X_neg
+    3300020: Wall_X_pos
+    3300022: Wall_Z_neg
+    3300024: Wall_Z_pos
+    4300000: Corner_Zpos_Xpos
+    4300002: Corner_Zpos_Xneg
+    4300004: Corner_Zneg_Xpos
+    4300006: Corner_Zneg_Xneg
+    4300008: InCorner_Zpos_Xpos
+    4300010: InCorner_Zpos_Xneg
+    4300012: InCorner_Zneg_Xpos
+    4300014: InCorner_Zneg_Xneg
+    4300016: Wall_X_pos
+    4300018: Wall_Z_pos
+    4300020: Wall_Z_neg
+    4300022: Wall_X_neg
+    4300024: Floor
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
