@@ -4,10 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class WaveSpawner : MonoBehaviour
 {
-    [SerializeField] private Text _waveNumber;
-    [SerializeField] private Text _timer;
-
-
     [SerializeField] private Transform _enemyPrefabs;
     [SerializeField] private float _timeBetweenWaves = 5f;
     [SerializeField] private Transform _spawnPoint;
@@ -24,12 +20,12 @@ public class WaveSpawner : MonoBehaviour
         }
 
         _countDown -= Time.deltaTime;
-        _timer.text = Mathf.Round(_countDown).ToString(); 
+        UIManager.Instance.ChangeTimer(_countDown);
     }
     private IEnumerator SpawnWave()
     {
         _waveIndex++;
-        _waveNumber.text = "Wave: " + _waveIndex;
+        UIManager.Instance.ChangeWaveIndex(_waveIndex);
 
         for (int i = 0; i < _waveIndex; i++)
         {

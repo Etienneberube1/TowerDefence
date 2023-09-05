@@ -5,7 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed = 10;
-
+    [SerializeField] private float _health = 50;
+    [SerializeField] private float _GoldAmount = 150;
     private Transform _target;
     private int _wayPointIndex = 0;
 
@@ -29,11 +30,32 @@ public class Enemy : MonoBehaviour
             GetNextPoint();
         }
     }
+
+    public void TakeDamage(float dmg)
+    {
+        _health -= dmg;
+        if (_health <= 0)
+        {
+            Dead();
+        }
+        Debug.Log(_health);
+    }
+
+
+    private void Dead()
+    {
+
+
+        GameManager.Instance.AddCurrency(_GoldAmount);
+        Destroy(gameObject);
+    }
     private void GetNextPoint()
     {
         if (_wayPointIndex >= WayPoints._points.Length - 1)
         {
             // enemy as reach the end 
+            // remove a life 
+            GameManager.Instance.ChangeHealth(1);
             Destroy(gameObject);
             return;
         }

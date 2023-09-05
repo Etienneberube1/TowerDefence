@@ -5,12 +5,14 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private Transform _target;
+
     [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _damage = 25f;
     [SerializeField] private GameObject _impactEffect;
-    
+
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -35,7 +37,8 @@ public class Bullet : MonoBehaviour
     {
         GameObject effect = Instantiate(_impactEffect, transform.position, transform.rotation);
         Destroy(effect, 2f);
-
+        Enemy enemy = _target.GetComponent<Enemy>();
+        enemy.TakeDamage(_damage);
         Destroy(gameObject);
     }
 

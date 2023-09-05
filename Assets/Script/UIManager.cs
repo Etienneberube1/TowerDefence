@@ -2,8 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class UIManager : MonoBehaviour
+using System;
+
+
+public class UIManager : Singleton<UIManager>
 {
-    [SerializeField] private Text _waveNumber;
-    [SerializeField] private Text _timer;
+    public event Action<float> OnHpChange;
+    public event Action<float> OnGoldChange;
+    public event Action<float> OnTimeChange;
+    public event Action<int> OnWaveChange;
+
+
+    public void ChangeHealth(float currentHp)
+    {
+        OnHpChange?.Invoke(currentHp);
+    }
+    public void changeGold(float currentGold)
+    {
+        OnGoldChange?.Invoke(currentGold);
+    }
+    public void ChangeWaveIndex(int currentWave)
+    {
+        OnWaveChange?.Invoke(currentWave);
+    }
+    public void ChangeTimer(float currentTimer)
+    {
+        OnTimeChange?.Invoke(currentTimer);
+    }
+
+
 }
