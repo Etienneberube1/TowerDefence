@@ -9,6 +9,9 @@ public class Turret : MonoBehaviour
     [SerializeField] private float _fireRate = 1f;
     [SerializeField] private float _turretDmg = 50f;
     [SerializeField] private float _turnSpeed = 10f;
+    [SerializeField] private float _turretValue = 150f;
+    public float _getTurretValue { get { return _turretValue; } }
+
 
     [Header("Unity Fields")]
     [SerializeField] private GameObject _bulletPrefabs;

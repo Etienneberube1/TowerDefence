@@ -7,6 +7,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _GoldText;
     [SerializeField] private TextMeshProUGUI _TimerText;
     [SerializeField] private TextMeshProUGUI _WaveText;
+    [SerializeField] private GameObject _turretUI;
 
     private void Awake()
     {
@@ -14,10 +15,12 @@ public class HUD : MonoBehaviour
         UIManager.Instance.OnTimeChange += OnTimerChange;
         UIManager.Instance.OnGoldChange += OnGoldChange;
         UIManager.Instance.OnWaveChange += OnWaveChange;
+        UIManager.Instance.OnUiChange += OnUiChange;
     }
-    private void Start()
-    {
 
+    private void OnUiChange(bool enableUI)
+    {
+        _turretUI.gameObject.SetActive(enableUI);
     }
     private void OnHpChange(float CurrentHP)
     {
@@ -45,6 +48,7 @@ public class HUD : MonoBehaviour
         UIManager.Instance.OnTimeChange -= OnTimerChange;
         UIManager.Instance.OnGoldChange -= OnGoldChange;
         UIManager.Instance.OnWaveChange -= OnWaveChange;
+        UIManager.Instance.OnUiChange -= OnUiChange;
     }
 }
 
