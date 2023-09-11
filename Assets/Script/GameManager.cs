@@ -7,7 +7,8 @@ public class GameManager : Singleton<GameManager>
     [Header("Game Stats")]
     [SerializeField] private float _currency = 150;
     [SerializeField] private float _currentHealth = 20;
-    private Transform _currentNodeTransform = null;
+    private GameObject _currentNodeTransform = null;
+    private Node _nodeScript;
     public void AddCurrency(float amount)
     {
         _currency += amount;
@@ -19,9 +20,11 @@ public class GameManager : Singleton<GameManager>
         _currentHealth -= amount;
         UIManager.Instance.ChangeHealth(_currentHealth);
     }
-    public void GetNodePosition(Transform nodeTransform)
+
+    public void GetNodePosition(GameObject node)
     {
-        _currentNodeTransform = nodeTransform;
+        _currentNodeTransform = node;
+        _nodeScript = node.GetComponent<Node>();
     }
 
     public void BaseTurretButton(GameObject turretPrefabs)
@@ -30,8 +33,11 @@ public class GameManager : Singleton<GameManager>
         float turretValue = turret._getTurretValue;
         if (_currency >= turretValue) {
             // spawn a turret at the node position using the prefab
-            Instantiate(turretPrefabs, _currentNodeTransform.position, _currentNodeTransform.rotation);
+            Instantiate(turretPrefabs, _currentNodeTransform.transform.position, _currentNodeTransform.transform.rotation);
             _currency -= turretValue;
+
+            _nodeScript.IsTurretPlace(true);
+
             // turn off the turret ui
             UIManager.Instance.UpdateUI(false);
             UIManager.Instance.changeGold(_currency);

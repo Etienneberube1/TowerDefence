@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
-
+    private bool _asTurretBeenSpawn = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            UIManager.Instance.UpdateUI(true);
-            GameManager.Instance.GetNodePosition(this.transform);
+            if (!_asTurretBeenSpawn)
+            {
+                UIManager.Instance.UpdateUI(true);
+                GameManager.Instance.GetNodePosition(this.gameObject);
+            }
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         // this will disable the Turret UI
@@ -22,5 +24,11 @@ public class Node : MonoBehaviour
         {
             UIManager.Instance.UpdateUI(false);
         }
+    }
+
+
+    public void IsTurretPlace(bool _bool)
+    {
+        _asTurretBeenSpawn = _bool;
     }
 }
