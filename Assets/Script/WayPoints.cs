@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class WayPoints : MonoBehaviour
 {
-    public static Transform[] _points;
+    public static WayPoints Instance { get; private set; }
+
+    public Transform[] points;
 
     private void Awake()
     {
-        _points = new Transform[transform.childCount];
-        for (int i = 0; i < _points.Length; i++)
+        if (Instance != null && Instance != this)
         {
-            _points[i] = transform.GetChild(i);
+            Destroy(this.gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        points = new Transform[transform.childCount];
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i] = transform.GetChild(i);
         }
     }
 }

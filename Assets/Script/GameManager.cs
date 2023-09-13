@@ -9,6 +9,15 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float _currentHealth = 20;
     private GameObject _currentNodeTransform = null;
     private Node _nodeScript;
+
+
+    private void Start()
+    {
+        // Lock the cursor to the center of the screen
+        Cursor.lockState = CursorLockMode.Locked;
+        // Hide the cursor
+        Cursor.visible = false;
+    }
     public void AddCurrency(float amount)
     {
         _currency += amount;
