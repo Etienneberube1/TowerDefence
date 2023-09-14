@@ -5,22 +5,22 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     [Header("Attributes")]
-    [SerializeField] private float _range = 15f;
-    [SerializeField] private float _fireRate = 1f;
-    [SerializeField] private float _turretDmg = 50f;
-    [SerializeField] private float _turnSpeed = 10f;
-    [SerializeField] private float _turretValue = 150f;
+    [SerializeField] protected float _range = 15f;
+    [SerializeField] protected float _fireRate = 1f;
+    [SerializeField] protected float _turretDmg = 50f;
+    [SerializeField] protected float _turnSpeed = 10f;
+    [SerializeField] protected float _turretValue = 150f;
     public float _getTurretValue { get { return _turretValue; } }
 
 
     [Header("Unity Fields")]
-    [SerializeField] private GameObject _bulletPrefabs;
-    [SerializeField] private string _enemyTag = "Enemy";
-    [SerializeField] private Transform _towerHead;
-    [SerializeField] private Transform _firePoint;
+    [SerializeField] protected GameObject _bulletPrefabs;
+    [SerializeField] protected string _enemyTag = "Enemy";
+    [SerializeField] protected Transform _towerHead;
+    [SerializeField] protected Transform _firePoint;
 
     private float _fireCountDown = 0f;
-    private Transform _target;
+    protected Transform _target;
 
     void Start()
     {
@@ -46,7 +46,7 @@ public class Turret : MonoBehaviour
         _fireCountDown -= Time.deltaTime;
     }
 
-    private void Shoot()
+    protected virtual void Shoot()
     {
         GameObject bulletGO = (GameObject)Instantiate(_bulletPrefabs, _firePoint.position, _firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
