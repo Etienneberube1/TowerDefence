@@ -19,7 +19,7 @@ public class Turret : MonoBehaviour
     [SerializeField] protected Transform _towerHead;
     [SerializeField] protected Transform _firePoint;
 
-    private float _fireCountDown = 0f;
+    protected float _fireCountDown = 0f;
     protected Transform _target;
 
     void Start()
@@ -27,7 +27,7 @@ public class Turret : MonoBehaviour
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (_target == null)
             return;

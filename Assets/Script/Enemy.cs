@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float rotationSpeed = 5.0f;  
     private Transform _target;
     private int _wayPointIndex = 0;
+    public float _getEnemyHealth { get { return _health; } }
 
     private void Start()
     {

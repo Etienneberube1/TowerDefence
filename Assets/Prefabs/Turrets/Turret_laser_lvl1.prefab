@@ -413,15 +413,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ab510374832724bbf1d51d46df371e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 14.4
+  _range: 10
   _fireRate: 1
-  _turretDmg: 50
+  _turretDmg: 1
   _turnSpeed: 10
   _turretValue: 150
   _bulletPrefabs: {fileID: 0}
   _enemyTag: Enemy
   _towerHead: {fileID: 4028979787627206713}
   _firePoint: {fileID: 6340728512730055965}
+  _laserPrefab: {fileID: 5964701149543483862, guid: 6a48a13fc4f014a41ab5762dbb18a334, type: 3}
 --- !u!1 &8518038304043722710
 GameObject:
   m_ObjectHideFlags: 0
