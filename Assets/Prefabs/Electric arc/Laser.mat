@@ -65,7 +65,7 @@ Material:
     - _noiseamount: 0.352
     - _noisepower: 2
     m_Colors:
-    - _MainColor: {r: 0.08004968, g: 3.7561352, b: 5.656854, a: 1}
+    - _MainColor: {r: 0.27974758, g: 11.861299, b: 1.3559253, a: 1}
     - _MainSpeed: {r: -0.5, g: 0, b: 0, a: 0}
     - _noise_speed: {r: -0.7, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

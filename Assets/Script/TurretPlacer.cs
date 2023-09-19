@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TurretPlacer : MonoBehaviour
 {
-    [SerializeField] private GameObject turretPrefab;
+    [SerializeField] private GameObject[] turretPrefab;
     [SerializeField] private LayerMask placeableLayerMask;
     [SerializeField] private LayerMask raycastIgnoreLayer;
     [SerializeField] private float maxPlacementDistance = 20f;
@@ -11,8 +11,10 @@ public class TurretPlacer : MonoBehaviour
 
     private Camera mainCamera;
     private GameObject turretPreview;
-    private bool _placingTurret = false;
-
+    private bool _placingBasicTurret = false;
+    private bool _placingRocketTurret = false;
+    private bool _placingLaserTurret = false;
+    private bool _isTurretUiOn = false;
     private void Start()
     {
         mainCamera = Camera.main;
@@ -21,22 +23,53 @@ public class TurretPlacer : MonoBehaviour
     void Update()
     {
         PlaceTurretOnMouseClick();
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            _placingTurret = true;
+        if (Input.GetKeyDown(KeyCode.Tab)) {
+            if (!_isTurretUiOn)
+            {
+                UIManager.Instance.UpdateTurretUI(true);
+                _isTurretUiOn = true;
+            } else {
+                UIManager.Instance.UpdateTurretUI(false);
+                _isTurretUiOn = false;
+            }
+            
         }
-        while (_placingTurret)
+
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            _placingBasicTurret = true;
+            ShowTurretPreview(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.E)) {
+            _placingRocketTurret = true;
+            ShowTurretPreview(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.R)) {
+            _placingLaserTurret = true;
+            ShowTurretPreview(2);
+        }
+
+        while (_placingBasicTurret)
         {
-            ShowTurretPreview();
+            ShowTurretPreview(0);
+            return;
+        }
+        while (_placingRocketTurret)
+        {
+            ShowTurretPreview(1);
+            return;
+        }
+        while (_placingLaserTurret)
+        {
+            ShowTurretPreview(2);
             return;
         }
     }
 
-    void ShowTurretPreview()
+    void ShowTurretPreview(int turretPrefabsIndex)
     {
         if (turretPreview == null)
         {
-            turretPreview = Instantiate(turretPrefab);
+            turretPreview = Instantiate(turretPrefab[turretPrefabsIndex]);
         }
 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -69,16 +102,18 @@ public class TurretPlacer : MonoBehaviour
             if (Physics.Raycast(ray, out hit, maxPlacementDistance, ~raycastIgnoreLayer) &&
                 placeableLayerMask == (placeableLayerMask | (1 << hit.collider.gameObject.layer)))
             {
-                _placingTurret = false;
+                _placingBasicTurret = false;
+                _placingRocketTurret = false;
+                _placingLaserTurret = false;
 
                 // Destroy the light component in the turret preview, not the entire turret
                 Light turretLight = turretPreview.GetComponentInChildren<Light>();
                 if (turretLight)
                 {
-                    Destroy(turretLight.gameObject);  // Assuming the light is on a separate child GameObject
+                    Destroy(turretLight.gameObject); 
                 }
 
-                turretPreview = null;  // Reset the reference, but don't destroy the turret itself
+                turretPreview = null; 
             }
         }
     }

@@ -8,19 +8,25 @@ public class HUD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _TimerText;
     [SerializeField] private TextMeshProUGUI _WaveText;
     [SerializeField] private GameObject _turretUI;
-
+    [SerializeField] private Animator _turretUiAnimator;
     private void Awake()
     {
         UIManager.Instance.OnHpChange += OnHpChange;
         UIManager.Instance.OnTimeChange += OnTimerChange;
         UIManager.Instance.OnGoldChange += OnGoldChange;
         UIManager.Instance.OnWaveChange += OnWaveChange;
-        UIManager.Instance.OnUiChange += OnUiChange;
+        UIManager.Instance.OnUiChange += OnTurretUIChange;
     }
-
-    private void OnUiChange(bool enableUI)
+    private void OnTurretUIChange(bool enableUI)
     {
-        _turretUI.gameObject.SetActive(enableUI);
+        if (enableUI == true)
+        {
+            _turretUiAnimator.SetBool("openUI", true);
+            _turretUiAnimator.SetBool("closeUI", false);
+        } else {
+            _turretUiAnimator.SetBool("openUI", false);
+            _turretUiAnimator.SetBool("closeUI", true);
+        }
     }
     private void OnHpChange(float CurrentHP)
     {
@@ -48,7 +54,7 @@ public class HUD : MonoBehaviour
         UIManager.Instance.OnTimeChange -= OnTimerChange;
         UIManager.Instance.OnGoldChange -= OnGoldChange;
         UIManager.Instance.OnWaveChange -= OnWaveChange;
-        UIManager.Instance.OnUiChange -= OnUiChange;
+        UIManager.Instance.OnUiChange -= OnTurretUIChange;
     }
 }
 

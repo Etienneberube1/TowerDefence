@@ -13,7 +13,7 @@ public class UIManager : Singleton<UIManager>
     public event Action<int> OnWaveChange;
     public event Action<bool> OnUiChange;
 
-    public void UpdateUI(bool enableUI)
+    public void UpdateTurretUI(bool enableUI)
     {
         OnUiChange?.Invoke(enableUI);
     }

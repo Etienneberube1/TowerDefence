@@ -4,63 +4,67 @@ using UnityEngine;
 
 public class LaserTurret : Turret
 {
-    [SerializeField] private GameObject _laserPrefab;
-    private GameObject _spawnLaser;
     private LineRenderer _lineRenderer;
-    
+    [SerializeField] private GameObject _laserHitParticule;
 
     private void Awake()
     {
-        _fireRate = 0.3f;
-        _spawnLaser = Instantiate(_laserPrefab, _firePoint.position, _firePoint.rotation);
-        _lineRenderer = _spawnLaser.GetComponentInChildren<LineRenderer>();
-        DisableLaser();
+        _lineRenderer = GetComponent<LineRenderer>();
     }
     protected override void Update()
     {
         if (_target == null)
         {
+            if (_lineRenderer.enabled)
+            {
+                _lineRenderer.enabled = false;
+            }
             return;
         }
+        LockOnTarget();
+        LaserShoot();
 
+
+        if (_lineRenderer.enabled)
+        {
+            if (_fireCountDown <= 0f)
+            {
+                Shoot();
+                _fireCountDown = _fireRate;
+            }
+            _fireCountDown -= Time.deltaTime;
+        }
+
+    }
+    private void LaserShoot()
+    {
+        if (!_lineRenderer.enabled)
+        {
+            _lineRenderer.enabled = true;
+        }
         _lineRenderer.SetPosition(0, _firePoint.position);
         _lineRenderer.SetPosition(1, _target.position);
+    }
+    private void LockOnTarget()
+    {
 
         // rotate the head of the turret troward the target
         Vector3 dir = _target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(_towerHead.rotation, lookRotation, Time.deltaTime * _turnSpeed).eulerAngles;
         _towerHead.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+    }
 
-        if (_fireCountDown <= 0f)
-        {
-            Shoot();
-            _fireCountDown = 1f / _fireRate;
-        }
-        _fireCountDown -= Time.deltaTime;
-}
-private void EnableLaser()
-    {
-        _spawnLaser.SetActive(true);
-    }
-    private void DisableLaser()
-    {
-        _spawnLaser.SetActive(false);
-    }
 
     protected override void Shoot()
     {
         if (_target != null)
         {
-            EnableLaser();
             Enemy enemy = _target.GetComponent<Enemy>();
-            while (enemy._getEnemyHealth >= 0)
-            {
-                enemy.TakeDamage(_turretDmg);
-            }
-        }
-        else {
-            DisableLaser();
+            enemy.TakeDamage(_turretDmg);
+
+            GameObject hitEffect = Instantiate(_laserHitParticule, _target.transform.position, _target.transform.rotation);
+            Destroy(hitEffect, 1f);
         }
     }
 }
