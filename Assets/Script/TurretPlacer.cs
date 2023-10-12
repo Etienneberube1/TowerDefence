@@ -8,17 +8,14 @@ public class TurretPlacer : MonoBehaviour
     [SerializeField] private float maxPlacementDistance = 20f;
     [SerializeField] private Color validPlacementColor = Color.green;
     [SerializeField] private Color invalidPlacementColor = Color.red;
+    [SerializeField] private Camera _mainCam;
 
-    private Camera mainCamera;
+
     private GameObject turretPreview;
     private bool _placingBasicTurret = false;
     private bool _placingRocketTurret = false;
     private bool _placingLaserTurret = false;
     private bool _isTurretUiOn = false;
-    private void Start()
-    {
-        mainCamera = Camera.main;
-    }
 
     void Update()
     {
@@ -72,7 +69,7 @@ public class TurretPlacer : MonoBehaviour
             turretPreview = Instantiate(turretPrefab[turretPrefabsIndex]);
         }
 
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = _mainCam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, maxPlacementDistance, ~raycastIgnoreLayer))
         {
@@ -97,7 +94,7 @@ public class TurretPlacer : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && turretPreview != null)
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _mainCam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, maxPlacementDistance, ~raycastIgnoreLayer) &&
                 placeableLayerMask == (placeableLayerMask | (1 << hit.collider.gameObject.layer)))
