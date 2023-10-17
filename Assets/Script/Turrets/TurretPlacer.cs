@@ -70,9 +70,26 @@ public class TurretPlacer : MonoBehaviour
             }
         }
 
+
+        // making sure that the cursor become visible when trying to place a turret 
         if (_placingBasicTurret || _placingRocketTurret || _placingLaserTurret)
         {
+            // Lock the cursor to the center of the screen
+            Cursor.lockState = CursorLockMode.None;
+            // Hide the cursor
+            Cursor.visible = true;
+
+
+
             ShowTurretPreview(_currentTurretIndex);
+        }
+        else
+        {
+
+            // Lock the cursor to the center of the screen
+            Cursor.lockState = CursorLockMode.Locked;
+            // Hide the cursor
+            Cursor.visible = false;
         }
     }
 
@@ -106,6 +123,10 @@ public class TurretPlacer : MonoBehaviour
 
     void PlaceTurret(int turretPrefabIndex, Vector3 position)
     {
+        // getting the turret script to get the value later
+        Turret currentTurret = turretPrefab[turretPrefabIndex].GetComponent<Turret>();
+
+
         if (turretPrefabIndex >= 0 && turretPrefabIndex < turretPrefab.Length)
         {
             GameObject newTurret = Instantiate(turretPrefab[turretPrefabIndex], position, Quaternion.identity);
@@ -117,7 +138,8 @@ public class TurretPlacer : MonoBehaviour
                 Destroy(newTurretLight.gameObject);
             }
 
-            // Handle other logic here, like deducting currency or setting up other turret-specific properties.
+            GameManager.Instance.RemoveCurrency(currentTurret._getTurretValue);
+            CancelPlacement();
         }
     }
 
@@ -153,24 +175,39 @@ public class TurretPlacer : MonoBehaviour
 
     void PlaceTurretOnMouseClick()
     {
-        if (Input.GetMouseButtonDown(0) && turretPreview != null)
+        // getting the current currency 
+        float currentCurrency = GameManager.Instance.GetCurrency();
+        Debug.Log(currentCurrency);
+
+        // getting the turret script to get the value later
+        Turret currentTurret = turretPrefab[_currentTurretIndex].GetComponent<Turret>();
+
+        if (currentCurrency >= currentTurret._getTurretValue)
         {
-            Ray ray = _mainCam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, maxPlacementDistance, ~raycastIgnoreLayer) &&
-                placeableLayerMask == (placeableLayerMask | (1 << hit.collider.gameObject.layer)))
+
+            if (Input.GetMouseButtonDown(0) && turretPreview != null)
             {
-                PlaceTurret(_currentTurretIndex, hit.point); // Change turret index as needed
-
-                // Destroy the light component in the turret preview, not the entire turret
-                Light turretLight = turretPreview.GetComponentInChildren<Light>();
-                if (turretLight)
+                Ray ray = _mainCam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, maxPlacementDistance, ~raycastIgnoreLayer) &&
+                    placeableLayerMask == (placeableLayerMask | (1 << hit.collider.gameObject.layer)))
                 {
-                    Destroy(turretLight.gameObject);
-                }
+                    PlaceTurret(_currentTurretIndex, hit.point);
 
-                turretPreview = null;
+                    // Destroy the light component in the turret preview, not the entire turret
+                    Light turretLight = turretPreview.GetComponentInChildren<Light>();
+                    if (turretLight)
+                    {
+                        Destroy(turretLight.gameObject);
+                    }
+
+                    turretPreview = null;
+                }
             }
+        }
+        else
+        {
+            Debug.Log("Not Enough currency");
         }
     }
 }

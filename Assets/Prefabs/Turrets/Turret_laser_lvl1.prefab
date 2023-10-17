@@ -5325,11 +5325,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ab510374832724bbf1d51d46df371e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 8
+  _range: 5
   _fireRate: 0.2
   _turretDmg: 1
   _turnSpeed: 10
-  _turretValue: 150
+  _turretValue: 300
   _bulletPrefabs: {fileID: 0}
   _enemyTag: Enemy
   _towerHead: {fileID: 4028979787627206713}

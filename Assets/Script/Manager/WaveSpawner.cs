@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class WaveSpawner : MonoBehaviour
 {
-    [SerializeField] private Transform _enemyPrefabs;
+    [SerializeField] private Transform[] _enemyPrefabs;
     [SerializeField] private float _timeBetweenWaves = 5f;
     [SerializeField] private Transform _spawnPoint;
     private float _countDown = 2;
@@ -36,7 +36,8 @@ public class WaveSpawner : MonoBehaviour
     }
     private void SpawnEnemy()
     {
-        Instantiate(_enemyPrefabs, _spawnPoint.position, _spawnPoint.rotation);
+        int randomIndex = Random.Range(0, _enemyPrefabs.Length);
+        Instantiate(_enemyPrefabs[randomIndex], _spawnPoint.position, _spawnPoint.rotation);
     }
 
 }

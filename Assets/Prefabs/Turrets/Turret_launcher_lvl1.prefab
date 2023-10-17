@@ -363,11 +363,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590e3a34ae34d7e46a4c9545efe34d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 15
+  _range: 3
   _fireRate: 1
   _turretDmg: 50
   _turnSpeed: 10
-  _turretValue: 150
+  _turretValue: 230
   _bulletPrefabs: {fileID: 577014797, guid: bcc062ce6fae0a84ea91d015a01a7669, type: 3}
   _enemyTag: Enemy
   _towerHead: {fileID: 3764026414038078302}
