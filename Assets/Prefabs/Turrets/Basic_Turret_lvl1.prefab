@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2761748957317301639}
   - component: {fileID: -4750745177677697930}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Basic_Turret_lvl1
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,7 +64,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4623771975864590013}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 457524642818444869}
   - component: {fileID: 7819254298589533420}
   - component: {fileID: 2412444767438443209}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TBasic_lvl1_bot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8437090392238674513}
   - component: {fileID: 6252764010892691754}
-  m_Layer: 0
+  - component: {fileID: 7670231841968552409}
+  m_Layer: 8
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,8 +215,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0.11576605, a: 1}
-  m_Intensity: 1000.24
-  m_Range: 10
+  m_Intensity: 100
+  m_Range: 5
   m_SpotAngle: 54
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -264,6 +265,29 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &7670231841968552409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6679235211510120232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &6914866869955606097
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +299,7 @@ GameObject:
   - component: {fileID: 3584819960849202287}
   - component: {fileID: 3953712996695623165}
   - component: {fileID: 26867288364681898}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TBasic_lvl1_top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

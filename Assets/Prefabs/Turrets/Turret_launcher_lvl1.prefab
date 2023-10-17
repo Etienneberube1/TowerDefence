@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 585176631578648138}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 5273468262242652622}
   - component: {fileID: 2684611622014905456}
   - component: {fileID: 1774018326307917083}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 2425309549482702277}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7023821, y: -0.00045676934, z: 0.0034352925, w: 0.71179175}
-  m_LocalPosition: {x: 0, y: 5.05, z: 0.01}
+  m_LocalPosition: {x: 0, y: 6.28, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,8 +76,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 1000
-  m_Range: 6.90416
+  m_Intensity: 100
+  m_Range: 5
   m_SpotAngle: 31
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 4052048443322331304}
   - component: {fileID: 7457470823897451839}
   - component: {fileID: 3772326703790073650}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TLauncher_bot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 5161042017854254955}
   - component: {fileID: 7718494964705023301}
   - component: {fileID: 6752589684955666124}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TLauncher_top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,9 +327,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3218235401356220523}
   - component: {fileID: 4057565391179191718}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Turret_launcher_lvl1
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 3764026414038078302}
   - component: {fileID: 7723785137056772161}
   - component: {fileID: 6754381311590879215}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TLauncher_mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
