@@ -177,7 +177,6 @@ public class TurretPlacer : MonoBehaviour
     {
         // getting the current currency 
         float currentCurrency = GameManager.Instance.GetCurrency();
-        Debug.Log(currentCurrency);
 
         // getting the turret script to get the value later
         Turret currentTurret = turretPrefab[_currentTurretIndex].GetComponent<Turret>();
@@ -194,20 +193,16 @@ public class TurretPlacer : MonoBehaviour
                 {
                     PlaceTurret(_currentTurretIndex, hit.point);
 
-                    // Destroy the light component in the turret preview, not the entire turret
-                    Light turretLight = turretPreview.GetComponentInChildren<Light>();
-                    if (turretLight)
-                    {
-                        Destroy(turretLight.gameObject);
-                    }
+                    //// Destroy the light component in the turret preview, not the entire turret
+                    //Light turretLight = turretPreview.GetComponentInChildren<Light>();
+                    //if (turretLight)
+                    //{
+                    //    Destroy(turretLight.gameObject);
+                    //}
 
                     turretPreview = null;
                 }
             }
-        }
-        else
-        {
-            Debug.Log("Not Enough currency");
         }
     }
 }

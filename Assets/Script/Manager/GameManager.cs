@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -19,6 +20,15 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.ChangeHealth(_currentHealth);
         UIManager.Instance.changeGold(_currency);
     }
+
+    private void Update()
+    {
+        if (_currentHealth <= 0) {
+            SceneManager.LoadScene("GameOver_Scene");
+        }    
+    }
+
+
     public void AddCurrency(float amount)
     {
         _currency += amount;
@@ -33,9 +43,15 @@ public class GameManager : Singleton<GameManager>
     {
         return _currency;
     }
-    public void ChangeHealth(float amount)
+    public void RemoveHealth(float amount)
     {
         _currentHealth -= amount;
+        UIManager.Instance.ChangeHealth(_currentHealth);
+    }
+
+    public void AddHealth(float amount)
+    {
+        _currentHealth += amount;
         UIManager.Instance.ChangeHealth(_currentHealth);
     }
 

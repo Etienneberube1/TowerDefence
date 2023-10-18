@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour
         {
             // enemy has reached the end 
             // remove a life 
-            GameManager.Instance.ChangeHealth(1);
+            GameManager.Instance.RemoveHealth(1);
             Destroy(gameObject);
             return;
         }
