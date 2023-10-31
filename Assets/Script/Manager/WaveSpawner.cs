@@ -7,7 +7,7 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private Transform[] _enemyPrefabs;
     [SerializeField] private float _timeBetweenWaves = 5f;
     [SerializeField] private Transform _spawnPoint;
-    private float _countDown = 10;
+    [SerializeField] private float _countDown = 1;
     private int _waveIndex = 0;
 
 

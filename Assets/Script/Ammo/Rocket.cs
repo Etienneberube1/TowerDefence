@@ -1,91 +1,84 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Rocket : MonoBehaviour
 {
-    [Header("Rocket Parameters")]
-    [SerializeField] private float _liftHeight = 10f;
-    [SerializeField] private float _liftSpeed = 5f;
-    [SerializeField] private float _rotationSpeed = 10f;
-    [SerializeField] private float _moveSpeed = 10f;
     [SerializeField] private float _damage = 25f;
-    [SerializeField] private GameObject _impactEffect;
+    [SerializeField] private float _speed = 5.0f;
+    [SerializeField] private float _explosionRadius = 2.0f;
+    [SerializeField] private GameObject _explosionEffect;
 
+    private float _sampleTime = 0f;
+    private QuadraticCurve _quadraticCurve;
     private Transform _target;
-    private Vector3 initialDirection;
+    private bool isSeeking = false;
+
+    void Start()
+    {
+        _sampleTime = 0f;
+    }
+
     void Update()
     {
-        if (_target == null)
-        {
+        if (_target == null) {
             Destroy(gameObject);
             return;
         }
+
+
+        if (isSeeking) startSeeking();
+
+        _sampleTime += Time.deltaTime * _speed;
+        transform.position = _quadraticCurve.evaluate(_sampleTime);
+        transform.forward = _quadraticCurve.evaluate(_sampleTime + 0.001f) - transform.position;
+
+        if (_sampleTime >= 1f) {
+            isSeeking = true;
+            _sampleTime = -500;
+        }
+
+
     }
-    public void GetStat(float rocketLiftHeight, float rocketLiftSpeed) 
+    private void startSeeking()
     {
-        _liftHeight = rocketLiftHeight;
-        _liftSpeed = rocketLiftSpeed;
+        ExplosionAoE(transform.position, _explosionRadius);
+        GameObject effect = Instantiate(_explosionEffect, transform.position, transform.rotation);
+        Destroy(effect, 0.3f);
+
+        isSeeking = false;
     }
-    public void Launch(Transform target, Transform launchDirection, float rocketLiftHeight, float rocketLiftSpeed)
+    public void seek(Transform target, QuadraticCurve quadraticCurve)
     {
         _target = target;
-        _liftHeight = rocketLiftHeight;
-        _liftSpeed = rocketLiftSpeed;
-
-        // Consider the cannon's forward direction
-        initialDirection = launchDirection.forward;
-
-        StartCoroutine(LiftOff());
+        _quadraticCurve = quadraticCurve;
     }
 
-    private IEnumerator LiftOff()
+    private void ExplosionAoE(Vector3 center, float radius)
     {
-        // Adjust the target position based on both the liftHeight and initialDirection
-        Vector3 liftTarget = transform.position + (Vector3.up + initialDirection) * _liftHeight;
+        Collider[] hitColliders = Physics.OverlapSphere(center, radius);
 
-        while (Vector3.Distance(transform.position, liftTarget) > 0.2f)
+
+        foreach (var entityHit in hitColliders)
         {
-            transform.position = Vector3.MoveTowards(transform.position, liftTarget, _liftSpeed * Time.deltaTime);
-            yield return null;
+            if (entityHit.GetComponent<Enemy>())
+            {
+                HitTarget(entityHit.GetComponent<Enemy>());
+            }
         }
-
-        StartCoroutine(RotateToTarget());
     }
-
-    private IEnumerator RotateToTarget()
+    void OnDrawGizmos()
     {
-        Quaternion startRotation = transform.rotation;
-        Vector3 directionToTarget = (_target.position - transform.position).normalized;
-        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-
-        float t = 0;
-
-        while (t < 1)
-        {
-            t += Time.deltaTime * _rotationSpeed;
-            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, t);
-            yield return null;
-        }
-
-        StartCoroutine(MoveToTarget());
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, _explosionRadius);
     }
-
-    private IEnumerator MoveToTarget()
+    private void HitTarget(Enemy enemy)
     {
-        while (Vector3.Distance(transform.position, _target.position) > 0.2f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _target.position, _moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-
-        HitTarget();
-    }
-    private void HitTarget()
-    {
-        GameObject effect = Instantiate(_impactEffect, transform.position, transform.rotation);
-        Destroy(effect, 2f);
-        Enemy enemy = _target.GetComponent<Enemy>();
         enemy.TakeDamage(_damage);
         Destroy(gameObject);
     }
+
+
 }

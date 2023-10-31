@@ -49,7 +49,6 @@ public class Enemy : MonoBehaviour
         {
             Dead();
         }
-        Debug.Log(_health);
     }
 
     private void Dead()

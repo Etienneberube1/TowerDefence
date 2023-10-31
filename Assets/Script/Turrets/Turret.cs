@@ -18,11 +18,10 @@ public class Turret : MonoBehaviour
     [SerializeField] protected string _enemyTag = "Enemy";
     [SerializeField] protected Transform _towerHead;
     [SerializeField] protected Transform _firePoint;
-
     protected float _fireCountDown = 0f;
     protected Transform _target;
 
-    void Start()
+    protected virtual void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
@@ -41,13 +40,14 @@ public class Turret : MonoBehaviour
         if (_fireCountDown <= 0f)
         {
             Shoot();
-            _fireCountDown = 1f / _fireRate;
+            _fireCountDown = _fireRate;
         }
         _fireCountDown -= Time.deltaTime;
     }
 
     protected virtual void Shoot()
     {
+
         GameObject bulletGO = (GameObject)Instantiate(_bulletPrefabs, _firePoint.position, _firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
