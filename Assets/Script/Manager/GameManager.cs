@@ -8,7 +8,7 @@ public class GameManager : Singleton<GameManager>
     [Header("Game Stats")]
     [SerializeField] private float _currency = 0;
     [SerializeField] private float _currentHealth = 0;
-
+    [SerializeField] private float _currentTotalRating = 0;
 
     private void Start()
     {
@@ -42,6 +42,10 @@ public class GameManager : Singleton<GameManager>
     public float GetCurrency()
     {
         return _currency;
+    }
+    public float GetCurrentRating()
+    {
+        return _currentTotalRating;
     }
     public void RemoveHealth(float amount)
     {
