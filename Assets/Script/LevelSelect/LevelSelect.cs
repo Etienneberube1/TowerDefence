@@ -57,8 +57,11 @@ public class LevelSelect : MonoBehaviour
     IEnumerator LoadScene() {
 
         Instantiate(_ParticleToSpawn, _playerTransform.position, _playerTransform.rotation);
-    
-        yield return new WaitForSeconds(1.0f);
+
+        // activate the fade in aniamtion to fadethe screen to black
+        UIManager.Instance.FadeIn();
+
+        yield return new WaitForSeconds(1.3f);
 
         SceneManager.LoadScene("map_" + _levelSO.mapIndex.ToString());
 

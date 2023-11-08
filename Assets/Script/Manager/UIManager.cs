@@ -13,6 +13,12 @@ public class UIManager : Singleton<UIManager>
     public event Action<int> OnWaveChange;
     public event Action<bool> OnUiChange;
 
+    Animator animator;
+    private void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+        StartCoroutine(FadeOutCoroutine());
+    }
     public void UpdateTurretUI(bool enableUI)
     {
         OnUiChange?.Invoke(enableUI);
@@ -34,5 +40,29 @@ public class UIManager : Singleton<UIManager>
         OnTimeChange?.Invoke(currentTimer);
     }
 
+    public void FadeIn()
+    {
+        StartCoroutine(FadeInCoroutine());
+    }
 
+    IEnumerator FadeInCoroutine()
+    {
+        animator.SetBool("fade_in", true);
+
+        yield return new WaitForSeconds(1.3f);
+
+        animator.SetBool("fade_in", false);
+
+        StartCoroutine(FadeOutCoroutine());
+    }
+
+    IEnumerator FadeOutCoroutine()
+    {
+        animator.SetBool("fade_out", true);
+
+        yield return new WaitForSeconds(1.3f);
+
+        animator.SetBool("fade_out", false);
+
+    }
 }
