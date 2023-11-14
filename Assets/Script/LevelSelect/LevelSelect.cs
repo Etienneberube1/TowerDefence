@@ -20,8 +20,10 @@ public class LevelSelect : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _neededRating;
 
+    [SerializeField]private Animator _panelAnimator;
 
     private Transform _playerTransform;
+
 
     void Update()
     {
@@ -41,22 +43,23 @@ public class LevelSelect : MonoBehaviour
 
     public void ClosePanelButton()
     {
-        _infoPanel.SetActive(false);
-
         DisableCursor();
+        _panelAnimator.SetBool("close", true);
+        StartCoroutine(DisaleInfoPanel());
     }
     public void EnterLevel()
     {
         Debug.Log("entering map_" + _levelSO.mapIndex.ToString());
 
         StartCoroutine(LoadScene());
-        _infoPanel.SetActive(false);
     }
 
 
-    IEnumerator LoadScene() {
+    private IEnumerator LoadScene() {
 
         Instantiate(_ParticleToSpawn, _playerTransform.position, _playerTransform.rotation);
+        _panelAnimator.SetBool("close", true);
+        StartCoroutine(DisaleInfoPanel());
 
         // activate the fade in aniamtion to fadethe screen to black
         UIManager.Instance.FadeIn();
@@ -74,7 +77,6 @@ public class LevelSelect : MonoBehaviour
         {
             _playerTransform = other.transform;
             _infoPanel.SetActive(true);
-
             EnableCursor();
         }
     }
@@ -85,10 +87,11 @@ public class LevelSelect : MonoBehaviour
         // turning off the info panel
         if (collision.gameObject.CompareTag("Player"))
         {
-            _infoPanel.SetActive(false);
 
-            DisableCursor();
+             DisableCursor();
 
+            _panelAnimator.SetBool("close", true);
+            StartCoroutine(DisaleInfoPanel());
         }
     }
 
@@ -107,5 +110,11 @@ public class LevelSelect : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         // Hide the cursor
         Cursor.visible = false;
+    }
+
+    private IEnumerator DisaleInfoPanel()
+    {
+        yield return new WaitForSeconds(1.0f);
+        _infoPanel.SetActive(false);
     }
 }

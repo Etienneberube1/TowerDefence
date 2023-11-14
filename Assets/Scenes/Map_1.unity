@@ -73801,7 +73801,7 @@ MonoBehaviour:
   turretPrefab:
   - {fileID: 7671741107864860176, guid: c6ede44a8e71ba94bb93714a6b0e7b09, type: 3}
   - {fileID: 7507443970673248037, guid: 26453ff49e7bb37468c328e0286a4b2d, type: 3}
-  - {fileID: 0}
+  - {fileID: 5996560388117568680, guid: 152d0fc566048f14bae475836e090f27, type: 3}
   placeableLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -73927,19 +73927,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 86958206685164461, guid: 8486cd44c2629f44e933b4b0539dee87, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.97766125
+      value: 0.9776613
       objectReference: {fileID: 0}
     - target: {fileID: 86958206685164461, guid: 8486cd44c2629f44e933b4b0539dee87, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.21018675
+      value: 0.21018682
       objectReference: {fileID: 0}
     - target: {fileID: 86958206685164461, guid: 8486cd44c2629f44e933b4b0539dee87, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000001542795
+      value: 0.000000015427965
       objectReference: {fileID: 0}
     - target: {fileID: 86958206685164461, guid: 8486cd44c2629f44e933b4b0539dee87, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000007618243
+      value: -0.000000007618249
       objectReference: {fileID: 0}
     - target: {fileID: 3757520402862682936, guid: 8486cd44c2629f44e933b4b0539dee87, type: 3}
       propertyPath: m_LocalRotation.y
