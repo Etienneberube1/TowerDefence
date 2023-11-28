@@ -13,12 +13,21 @@ public class UIManager : Singleton<UIManager>
     public event Action<int> OnWaveChange;
     public event Action<bool> OnUiChange;
 
+    private WaveSpawner waveSpawner;
+
     Animator animator;
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
         StartCoroutine(FadeOutCoroutine());
     }
+
+
+    public void GiveWaveSpawnerRef(WaveSpawner ws)
+    { 
+        waveSpawner = ws;
+    }
+
     public void UpdateTurretUI(bool enableUI)
     {
         OnUiChange?.Invoke(enableUI);
@@ -39,6 +48,18 @@ public class UIManager : Singleton<UIManager>
     {
         OnTimeChange?.Invoke(currentTimer);
     }
+
+
+    public void OnToggleWaveSend(bool toggleBool)
+    {
+        waveSpawner.SetToggle(toggleBool);
+    }
+    public void SendWave()
+    {
+        StartCoroutine(waveSpawner.SpawnWave());
+    }
+
+
 
     public void FadeIn()
     {

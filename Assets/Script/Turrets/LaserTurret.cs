@@ -4,6 +4,4 @@ using UnityEngine;
 
 public class LaserTurret : Turret
 {
-    [SerializeField] private GameObject _laserHitParticule;
-
 }

@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _damage = 25f;
-    [SerializeField] private GameObject _impactEffect;
+    [SerializeField] private GameObject _bulletImpactEffect;
 
     void Start()
     {
@@ -23,7 +23,8 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        Vector3 dir = _target.position - transform.position;
+        Vector3 dir = _target.position - transform.position + new Vector3(0.0f, 0.5f, 0.0f);
+        
         float distanceThisFrame = _speed * Time.deltaTime;
 
         if (dir.magnitude <= distanceThisFrame)
@@ -33,10 +34,12 @@ public class Bullet : MonoBehaviour
         }
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
     }
+
     private void HitTarget()
     {
-        GameObject effect = Instantiate(_impactEffect, transform.position, transform.rotation);
-        Destroy(effect, 0.5f);
+        GameObject bulletEffect = Instantiate(_bulletImpactEffect, transform.position, transform.rotation);
+        Destroy(bulletEffect, 0.15f);
+
         Enemy enemy = _target.GetComponent<Enemy>();
         enemy.TakeDamage(_damage);
         Destroy(gameObject);

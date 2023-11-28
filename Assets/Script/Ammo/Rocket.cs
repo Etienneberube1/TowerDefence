@@ -13,7 +13,7 @@ public class Rocket : MonoBehaviour
     private float _sampleTime = 0f;
     private QuadraticCurve _quadraticCurve;
     private Transform _target;
-    private bool isSeeking = false;
+    private bool asReached = false;
 
     void Start()
     {
@@ -28,24 +28,30 @@ public class Rocket : MonoBehaviour
         }
 
 
-        if (isSeeking) startSeeking();
 
-        _sampleTime += Time.deltaTime * _speed;
-        transform.position = _quadraticCurve.evaluate(_sampleTime);
-        transform.forward = _quadraticCurve.evaluate(_sampleTime + 0.001f) - transform.position;
 
         if (_sampleTime >= 1f) {
-            isSeeking = true;
-            _sampleTime = Mathf.Infinity;
+            startExploding();
+            Debug.Log("boom");
+
+        }
+        else
+        {
+            Debug.Log("counting");
+
+            _sampleTime += Time.deltaTime * _speed;
+            transform.position = _quadraticCurve.evaluate(_sampleTime);
+            transform.forward = _quadraticCurve.evaluate(_sampleTime + 0.01f) - transform.position;
         }
 
 
+
     }
-    private void startSeeking()
+    private void startExploding()
     {
+        Debug.Log("explode");
         ExplosionAoE(transform.position, _explosionRadius);
 
-        isSeeking = false;
     }
     public void seek(Transform target, QuadraticCurve quadraticCurve)
     {
@@ -55,14 +61,17 @@ public class Rocket : MonoBehaviour
 
     private void ExplosionAoE(Vector3 center, float radius)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(center, radius);
+        Collider[] Colliders = Physics.OverlapSphere(center, radius);
 
 
-        foreach (var entityHit in hitColliders)
+        foreach (Collider collider in Colliders)
         {
-            if (entityHit.GetComponent<Enemy>())
+            Debug.Log("collider");
+
+            if (collider.CompareTag("Enemy"))
             {
-                HitTarget(entityHit.GetComponent<Enemy>());
+                Debug.Log("as hit collider");
+                HitTarget(collider.GetComponent<Enemy>());
             }
         }
     }
@@ -74,7 +83,8 @@ public class Rocket : MonoBehaviour
     private void HitTarget(Enemy enemy)
     {
         enemy.TakeDamage(_damage);
-        Destroy(gameObject);
+        Debug.Log("hit taregt");
+        Destroy(gameObject, 0.2f);
     }
 
 

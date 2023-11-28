@@ -5,28 +5,19 @@ public class HUD : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _HPText;
     [SerializeField] private TextMeshProUGUI _GoldText;
-    [SerializeField] private TextMeshProUGUI _TimerText;
+
     [SerializeField] private TextMeshProUGUI _WaveText;
-    [SerializeField] private GameObject _turretUI;
-    [SerializeField] private Animator _turretUiAnimator;
+
+    [SerializeField] private TextMeshProUGUI _TimerText;
+    [SerializeField] private Toggle _ToggleWaveSend;
+
+    private bool _toggleWaveSpawnBool = false;
     private void Awake()
     {
         UIManager.Instance.OnHpChange += OnHpChange;
         UIManager.Instance.OnTimeChange += OnTimerChange;
         UIManager.Instance.OnGoldChange += OnGoldChange;
         UIManager.Instance.OnWaveChange += OnWaveChange;
-        UIManager.Instance.OnUiChange += OnTurretUIChange;
-    }
-    private void OnTurretUIChange(bool enableUI)
-    {
-        if (enableUI == true)
-        {
-            _turretUiAnimator.SetBool("openUI", true);
-            _turretUiAnimator.SetBool("closeUI", false);
-        } else {
-            _turretUiAnimator.SetBool("openUI", false);
-            _turretUiAnimator.SetBool("closeUI", true);
-        }
     }
     private void OnHpChange(float CurrentHP)
     {
@@ -45,6 +36,15 @@ public class HUD : MonoBehaviour
         _GoldText.text = ($"Gold: {(currentCurrency)}");
     }
 
+    public void OnToggleWaveSend()
+    {
+        _toggleWaveSpawnBool = _ToggleWaveSend.isOn;
+        UIManager.Instance.OnToggleWaveSend(_toggleWaveSpawnBool);
+    }
+    public void SendWave()
+    {
+        UIManager.Instance.SendWave();
+    }
 
 
 
@@ -54,7 +54,6 @@ public class HUD : MonoBehaviour
         UIManager.Instance.OnTimeChange -= OnTimerChange;
         UIManager.Instance.OnGoldChange -= OnGoldChange;
         UIManager.Instance.OnWaveChange -= OnWaveChange;
-        UIManager.Instance.OnUiChange -= OnTurretUIChange;
     }
 }
 

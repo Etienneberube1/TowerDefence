@@ -8,9 +8,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1024064429418374, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1572808123402848, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
       propertyPath: m_Name
       value: BaseTurret_L1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572808123402848, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572808123402848, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
+      propertyPath: m_TagString
+      value: Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660870473610210, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719075971688944, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1797524259119686, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950861981829530, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4097046342247674, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
       propertyPath: m_LocalScale.x
@@ -102,6 +130,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1572808123402848, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: -3547297545594346214}
+    - targetCorrespondingSourceObject: {fileID: 1572808123402848, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -9098078403483082795}
   m_SourcePrefab: {fileID: 100100000, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
 --- !u!4 &5993550949599346794 stripped
 Transform:
@@ -133,12 +164,13 @@ MonoBehaviour:
   _range: 4
   _fireRate: 1.7
   _turretDmg: 15
-  _turnSpeed: 10
+  _turnSpeed: 30
   _turretValue: 150
   _bulletPrefabs: {fileID: 7291389015175210372, guid: f8243dd34d6bdae49975a0960a39539b, type: 3}
   _enemyTag: Enemy
   _towerHead: {fileID: 5994934244725615912}
   _firePoint: {fileID: 5993550949599346794}
+  _spawnParticleEffect: {fileID: 8263428832195714075, guid: a96dad5c46057fa41a6581f9d89465ca, type: 3}
 --- !u!95 &-3547297545594346214
 Animator:
   serializedVersion: 5
@@ -160,3 +192,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!135 &-9098078403483082795
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5996560388117568680}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

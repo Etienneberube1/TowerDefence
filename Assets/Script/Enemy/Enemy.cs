@@ -6,7 +6,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _speed = 10;
     [SerializeField] private float _health = 50;
     [SerializeField] private float _GoldAmount = 150;
-    [SerializeField] private float rotationSpeed = 5.0f;  
+    [SerializeField] private float _rotationSpeed = 5.0f;
+
+
+    [SerializeField] private float _minItemToSpawn = 2.0f;
+    [SerializeField] private float _maxItemToSpawn = 6.0f;
+
+    [SerializeField] private GameObject[] _itemToSpawn;
     private Transform _target;
     private int _wayPointIndex = 0;
     public float _getEnemyHealth { get { return _health; } }
@@ -31,7 +37,7 @@ public class Enemy : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
 
         // Smoothly rotate towards the desired direction
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * _rotationSpeed);
 
         // Continue with your movement logic
         transform.Translate(dir.normalized * _speed * Time.deltaTime, Space.World);
@@ -49,13 +55,33 @@ public class Enemy : MonoBehaviour
         {
             Dead();
         }
+        Debug.Log(_health);
     }
 
     private void Dead()
     {
         GameManager.Instance.AddCurrency(_GoldAmount);
-        Destroy(gameObject);
+        LunchCurrency();
+        Destroy(gameObject, 0.2f);
     }
+
+    private void LunchCurrency()
+    {
+        float nbItemToSpawn;
+        nbItemToSpawn = Random.Range(_minItemToSpawn, _maxItemToSpawn);
+
+        for (int i = 0; i < nbItemToSpawn; i++)
+        {
+            int random = Random.Range(0, _itemToSpawn.Length);
+
+            GameObject item = Instantiate(_itemToSpawn[random], transform.position, transform.rotation);
+            item.GetComponent<Rigidbody>().AddForce(Vector3.up  , ForceMode.Impulse);
+            Destroy(item, 0.3f);
+
+        }
+    }
+
+
 
     private void GetNextPoint()
     {

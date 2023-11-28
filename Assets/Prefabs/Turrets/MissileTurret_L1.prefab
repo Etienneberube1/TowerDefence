@@ -5288,7 +5288,7 @@ GameObject:
   - component: {fileID: -1805651127500378713}
   m_Layer: 0
   m_Name: MissileTurret_L1
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5322,15 +5322,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590e3a34ae34d7e46a4c9545efe34d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 4
-  _fireRate: 2
-  _turretDmg: 25
-  _turnSpeed: 10
+  _range: 5
+  _fireRate: 1.5
+  _turretDmg: 100
+  _turnSpeed: 20
   _turretValue: 230
   _bulletPrefabs: {fileID: 1321523755478590229, guid: 6c96199a6728a75458fb0d378b03a1d5, type: 3}
   _enemyTag: Enemy
   _towerHead: {fileID: 1508985652922060879}
   _firePoint: {fileID: 5210365996658796502}
+  _spawnParticleEffect: {fileID: 8263428832195714075, guid: a96dad5c46057fa41a6581f9d89465ca, type: 3}
   _fireEffect: {fileID: 3478768405084010735}
 --- !u!114 &8332792631978535433
 MonoBehaviour:

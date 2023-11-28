@@ -29332,7 +29332,7 @@ GameObject:
   - component: {fileID: 8956953167185350750}
   m_Layer: 0
   m_Name: LaserTurret_L1
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29347,7 +29347,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1395015984457350379}
@@ -29367,15 +29367,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _range: 4
-  _fireRate: 0.03
-  _turretDmg: 0.2
-  _turnSpeed: 10
+  _fireRate: 0.05
+  _turretDmg: 0.8
+  _turnSpeed: 15
   _turretValue: 300
   _bulletPrefabs: {fileID: 4727988979226960795, guid: 12ed0e9d6baa0e549862ea0be290fbc2, type: 3}
   _enemyTag: Enemy
   _towerHead: {fileID: 4777490352024540796}
   _firePoint: {fileID: 7905143083821230780}
-  _laserHitParticule: {fileID: 8922761151834311141}
+  _spawnParticleEffect: {fileID: 8263428832195714075, guid: a96dad5c46057fa41a6581f9d89465ca, type: 3}
 --- !u!95 &8956953167185350750
 Animator:
   serializedVersion: 5
@@ -44027,7 +44027,7 @@ Transform:
   m_GameObject: {fileID: 8922761151834311141}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 1.44}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0.353}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

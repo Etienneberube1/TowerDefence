@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+
 public class WaveSpawner : MonoBehaviour
 {
     [SerializeField] private Transform[] _enemyPrefabs;
@@ -10,19 +12,29 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private float _countDown = 1;
     private int _waveIndex = 0;
 
+    private bool _toggleWaveSend = false;
+
+    private void Start()
+    {
+        UIManager.Instance.GiveWaveSpawnerRef(this);    
+    }
+
 
     private void Update()
     {
-        if (_countDown <= 0f)
+        if (_toggleWaveSend)
         {
-            StartCoroutine(SpawnWave());
-            _countDown = _timeBetweenWaves;
-        }
+            if (_countDown <= 0f)
+            {
+                StartCoroutine(SpawnWave());
+                _countDown = _timeBetweenWaves;
+            }
 
-        _countDown -= Time.deltaTime;
-        UIManager.Instance.ChangeTimer(_countDown);
+            _countDown -= Time.deltaTime;
+            UIManager.Instance.ChangeTimer(_countDown);
+        }
     }
-    private IEnumerator SpawnWave()
+    public IEnumerator SpawnWave()
     {
         _waveIndex++;
         UIManager.Instance.ChangeWaveIndex(_waveIndex);
@@ -34,10 +46,15 @@ public class WaveSpawner : MonoBehaviour
         }
 
     }
+
     private void SpawnEnemy()
     {
         int randomIndex = Random.Range(0, _enemyPrefabs.Length);
         Instantiate(_enemyPrefabs[randomIndex], _spawnPoint.position, _spawnPoint.rotation);
     }
 
+    public void SetToggle(bool toggle)
+    {
+        _toggleWaveSend = toggle;
+    }
 }

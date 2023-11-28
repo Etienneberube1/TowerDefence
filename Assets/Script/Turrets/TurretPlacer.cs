@@ -125,6 +125,25 @@ public class TurretPlacer : MonoBehaviour
         Renderer[] turretRenderers = _turretPreview.GetComponentsInChildren<MeshRenderer>();
         bool isValid = ((1 << hit.transform.gameObject.layer) & _placableLayerMask) != 0;
 
+        Collider turretPreviewCollider = _turretPreview.GetComponent<Collider>();
+
+        if (isValid)
+        {
+            Collider[] colliders = Physics.OverlapSphere(hit.point, 1);
+            foreach(Collider collider in colliders)
+            {
+                if(collider.CompareTag("Turret"))
+                {
+                    if(collider != turretPreviewCollider)
+                    {
+                        isValid = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+
         foreach (Renderer renderer in turretRenderers)
         {
             foreach (Material mat in renderer.materials) // Iterate over all materials

@@ -18,6 +18,9 @@ public class Turret : MonoBehaviour
     [SerializeField] protected string _enemyTag = "Enemy";
     [SerializeField] protected Transform _towerHead;
     [SerializeField] protected Transform _firePoint;
+
+    [SerializeField] GameObject _spawnParticleEffect;
+
     protected float _fireCountDown = 0f;
     protected Transform _target;
 
@@ -30,7 +33,8 @@ public class Turret : MonoBehaviour
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         _animator = GetComponent<Animator>();
-
+        GameObject effect = Instantiate(_spawnParticleEffect, transform.position, _spawnParticleEffect.transform.rotation);
+        Destroy(effect, 0.5f);
     }
 
     public void ChangeAnimToIdle()
