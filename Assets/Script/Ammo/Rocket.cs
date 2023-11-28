@@ -9,7 +9,6 @@ public class Rocket : MonoBehaviour
     [SerializeField] private float _damage = 25f;
     [SerializeField] private float _speed = 5.0f;
     [SerializeField] private float _explosionRadius = 2.0f;
-    [SerializeField] private GameObject _explosionEffect;
 
     private float _sampleTime = 0f;
     private QuadraticCurve _quadraticCurve;
@@ -37,7 +36,7 @@ public class Rocket : MonoBehaviour
 
         if (_sampleTime >= 1f) {
             isSeeking = true;
-            _sampleTime = -500;
+            _sampleTime = Mathf.Infinity;
         }
 
 
@@ -45,8 +44,6 @@ public class Rocket : MonoBehaviour
     private void startSeeking()
     {
         ExplosionAoE(transform.position, _explosionRadius);
-        GameObject effect = Instantiate(_explosionEffect, transform.position, transform.rotation);
-        Destroy(effect, 0.3f);
 
         isSeeking = false;
     }

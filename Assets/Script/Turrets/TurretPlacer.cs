@@ -1,208 +1,165 @@
+using System.Collections.Generic;
+using TMPro;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
+
+enum TURRET_INDEX
+{
+    BASE_TURRET = 0,
+    ROCKET_TURRET = 1,
+    LASER_TURRET = 2
+}
 
 public class TurretPlacer : MonoBehaviour
 {
-    [SerializeField] private GameObject[] turretPrefab;
-    [SerializeField] private LayerMask placeableLayerMask;
-    [SerializeField] private LayerMask raycastIgnoreLayer;
-    [SerializeField] private float maxPlacementDistance = 20f;
-    [SerializeField] private Color validPlacementColor = Color.green;
-    [SerializeField] private Color invalidPlacementColor = Color.red;
-    [SerializeField] private Camera _mainCam;
 
-    private GameObject turretPreview;
-    private bool _placingBasicTurret = false;
-    private bool _placingRocketTurret = false;
-    private bool _placingLaserTurret = false;
-    private bool _isTurretUiOn = false;
-    private int _currentTurretIndex;
 
-    void Update()
+    [Header("turret Prefabs")]
+    [SerializeField] private List<GameObject> _turretsPrefabs;
+
+    [Header("Main Camera")]
+    [SerializeField] private Camera _mainCamera;
+
+    [Header("Attributes")]
+    [SerializeField] private float _maxPlacementDistance = 20.0f;
+    [SerializeField] private LayerMask _placableLayerMask;
+
+    [SerializeField, Tooltip("Should be the player layer")] 
+    private LayerMask _IgnoreLayerMask; 
+
+
+
+    private GameObject _turretPreview;
+    private bool _isPreviewingTurret = false;
+
+
+    private TURRET_INDEX _CURRENT_TURRET_INDEX;
+
+
+    private void Update()
     {
-        PlaceTurretOnMouseClick();
+        CheckInput();
+        if (_isPreviewingTurret) { ShowTurretPreview(); }
+    }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+    private float GetCurrentTowerValue()
+    {
+        float currentTowerValue;
+
+        currentTowerValue = _turretsPrefabs[(int)_CURRENT_TURRET_INDEX].GetComponent<Turret>().GetTurretValue;
+
+        return currentTowerValue;
+    }
+    private void CheckTurretValue(TURRET_INDEX TURRET_INDEX)
+    {
+        if (GameManager.Instance.GetCurrency() >= GetCurrentTowerValue())
         {
-            UIManager.Instance.UpdateTurretUI(!_isTurretUiOn);
-            _isTurretUiOn = !_isTurretUiOn;
-        }
+            GameManager.Instance.ShowCursor();
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (!_placingBasicTurret)
-            {
-                CancelPlacement();
-                _placingBasicTurret = true;
-                _currentTurretIndex = 0;
-                ShowTurretPreview(0);
-            }
-            else
-            {
-                CancelPlacement();
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (!_placingRocketTurret)
-            {
-                CancelPlacement();
-                _placingRocketTurret = true;
-                _currentTurretIndex = 1;
-                ShowTurretPreview(1);
-            }
-            else
-            {
-                CancelPlacement();
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (!_placingLaserTurret)
-            {
-                CancelPlacement();
-                _placingLaserTurret = true;
-                _currentTurretIndex = 2;
-                ShowTurretPreview(2);
-            }
-            else
-            {
-                CancelPlacement();
-            }
-        }
-
-
-        // making sure that the cursor become visible when trying to place a turret 
-        if (_placingBasicTurret || _placingRocketTurret || _placingLaserTurret)
-        {
-            // Lock the cursor to the center of the screen
-            Cursor.lockState = CursorLockMode.None;
-            // Hide the cursor
-            Cursor.visible = true;
-
-
-
-            ShowTurretPreview(_currentTurretIndex);
+            _CURRENT_TURRET_INDEX = TURRET_INDEX;
+            _isPreviewingTurret = true;
         }
         else
         {
+            // display text for not enough money
+        }
+    }
+    private void RemoveCurrency()
+    {
+        GameManager.Instance.RemoveCurrency(GetCurrentTowerValue());
+    }
 
-            // Lock the cursor to the center of the screen
-            Cursor.lockState = CursorLockMode.Locked;
-            // Hide the cursor
-            Cursor.visible = false;
+
+
+    private void CheckInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            CheckTurretValue(TURRET_INDEX.BASE_TURRET);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            CheckTurretValue(TURRET_INDEX.ROCKET_TURRET);
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            CheckTurretValue(TURRET_INDEX.LASER_TURRET);
         }
     }
 
-    void ShowTurretPreview(int turretPrefabsIndex)
+
+    private void ShowTurretPreview()
     {
-        if (turretPreview == null)
+        if (_turretPreview == null)
         {
-            turretPreview = Instantiate(turretPrefab[turretPrefabsIndex]);
+            _turretPreview = Instantiate(_turretsPrefabs[(int)_CURRENT_TURRET_INDEX]);
         }
 
-        Ray ray = _mainCam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, maxPlacementDistance, ~raycastIgnoreLayer))
-        {
-            turretPreview.transform.position = hit.point;
 
-            if (placeableLayerMask == (placeableLayerMask | (1 << hit.collider.gameObject.layer)))
+        if (Physics.Raycast(ray, out hit, _maxPlacementDistance, ~_IgnoreLayerMask))
+        {
+            bool isValidPlacement = CheckForValidPlacement(hit);
+
+            // if the mouse button is being pressed and it's on a valid layer
+            if (Input.GetMouseButton(0) && isValidPlacement)
             {
-                Light turretLight = turretPreview.GetComponentInChildren<Light>();
-                if (turretLight)
-                {
-                    turretLight.color = validPlacementColor;
-                }
-            }
-            else
-            {
-                IndicateInvalidPlacement(turretPreview);
+                // reseting the value 
+                _isPreviewingTurret = false;
+
+                // making sure the turret preview dosent stays
+                Destroy(_turretPreview);
+                _turretPreview = null;
+
+                // creating a new turret 
+                PlaceTurret(hit.transform);
             }
         }
     }
 
-    void PlaceTurret(int turretPrefabIndex, Vector3 position)
+
+    private bool CheckForValidPlacement(RaycastHit hit)
     {
-        // getting the turret script to get the value later
-        Turret currentTurret = turretPrefab[turretPrefabIndex].GetComponent<Turret>();
+        _turretPreview.transform.position = hit.point;
+        Renderer[] turretRenderers = _turretPreview.GetComponentsInChildren<MeshRenderer>();
+        bool isValid = ((1 << hit.transform.gameObject.layer) & _placableLayerMask) != 0;
 
-
-        if (turretPrefabIndex >= 0 && turretPrefabIndex < turretPrefab.Length)
+        foreach (Renderer renderer in turretRenderers)
         {
-            GameObject newTurret = Instantiate(turretPrefab[turretPrefabIndex], position, Quaternion.identity);
-
-            // Destroy the light component in the new turret
-            Light newTurretLight = newTurret.GetComponentInChildren<Light>();
-            if (newTurretLight)
+            foreach (Material mat in renderer.materials) // Iterate over all materials
             {
-                Destroy(newTurretLight.gameObject);
+                mat.color = isValid ? Color.green : Color.red;
+                mat.SetColor("_EmissionColor", isValid ? Color.green * 0.3f : Color.red * 0.3f); // Set emission color and reduce intensity
+                mat.EnableKeyword("_EMISSION");
             }
-
-            GameManager.Instance.RemoveCurrency(currentTurret._getTurretValue);
-            CancelPlacement();
         }
+
+        return isValid;
     }
 
-    void IndicateInvalidPlacement(GameObject turretPreview)
+
+    private void PlaceTurret(Transform groundPos)
     {
-        Light turretLight = turretPreview.GetComponentInChildren<Light>();
-        if (turretLight)
+        RemoveCurrency();
+        GameManager.Instance.HideCursor();
+
+        Vector3 turretYOffSet = new Vector3(0, 0.1f, 0);
+
+        // Instantiate the turret GameObject
+        GameObject turretObject = Instantiate(_turretsPrefabs[(int)_CURRENT_TURRET_INDEX], groundPos.position + turretYOffSet, groundPos.rotation);
+
+        // Get the Turret component
+        Turret turretComponent = turretObject.GetComponent<Turret>();
+
+        if (turretComponent != null)
         {
-            turretLight.color = invalidPlacementColor;
+            // Activate the turret script
+            turretComponent.enabled = true;
         }
-    }
-
-    void CancelPlacement()
-    {
-        _placingBasicTurret = false;
-        _placingRocketTurret = false;
-        _placingLaserTurret = false;
-
-        if (turretPreview != null)
+        else
         {
-            // Destroy the light component in the turret preview
-            Light turretLight = turretPreview.GetComponentInChildren<Light>();
-            if (turretLight)
-            {
-                Destroy(turretLight.gameObject);
-            }
-
-            // Now destroy the turret preview
-            Destroy(turretPreview);
-            turretPreview = null;
-        }
-    }
-
-    void PlaceTurretOnMouseClick()
-    {
-        // getting the current currency 
-        float currentCurrency = GameManager.Instance.GetCurrency();
-
-        // getting the turret script to get the value later
-        Turret currentTurret = turretPrefab[_currentTurretIndex].GetComponent<Turret>();
-
-        if (currentCurrency >= currentTurret._getTurretValue)
-        {
-
-            if (Input.GetMouseButtonDown(0) && turretPreview != null)
-            {
-                Ray ray = _mainCam.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, maxPlacementDistance, ~raycastIgnoreLayer) &&
-                    placeableLayerMask == (placeableLayerMask | (1 << hit.collider.gameObject.layer)))
-                {
-                    PlaceTurret(_currentTurretIndex, hit.point);
-
-                    //// Destroy the light component in the turret preview, not the entire turret
-                    //Light turretLight = turretPreview.GetComponentInChildren<Light>();
-                    //if (turretLight)
-                    //{
-                    //    Destroy(turretLight.gameObject);
-                    //}
-
-                    turretPreview = null;
-                }
-            }
+            Debug.LogError("Turret component not found on the object");
         }
     }
 }

@@ -29329,6 +29329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5475742848859588414}
   - component: {fileID: 1686752664996232882}
+  - component: {fileID: 8956953167185350750}
   m_Layer: 0
   m_Name: LaserTurret_L1
   m_TagString: Untagged
@@ -29360,7 +29361,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7671741107864860176}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83ab510374832724bbf1d51d46df371e, type: 3}
   m_Name: 
@@ -29375,6 +29376,27 @@ MonoBehaviour:
   _towerHead: {fileID: 4777490352024540796}
   _firePoint: {fileID: 7905143083821230780}
   _laserHitParticule: {fileID: 8922761151834311141}
+--- !u!95 &8956953167185350750
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7671741107864860176}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8f705cf30d669994a9df5ad280a56d17, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7836213263230341134
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class Turret : MonoBehaviour
     [SerializeField] protected float _turretDmg = 50f;
     [SerializeField] protected float _turnSpeed = 10f;
     [SerializeField] protected float _turretValue = 150f;
-    public float _getTurretValue { get { return _turretValue; } }
+    public float GetTurretValue { get { return _turretValue; } }
 
 
     [Header("Unity Fields")]
@@ -21,9 +21,24 @@ public class Turret : MonoBehaviour
     protected float _fireCountDown = 0f;
     protected Transform _target;
 
+
+    protected Animator _animator;
+
+
+
     protected virtual void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        _animator = GetComponent<Animator>();
+
+    }
+
+    public void ChangeAnimToIdle()
+    {
+        if (_animator != null)
+        {
+            _animator.SetTrigger("finishInstall");
+        }
     }
 
     protected virtual void Update()
@@ -47,13 +62,14 @@ public class Turret : MonoBehaviour
 
     protected virtual void Shoot()
     {
-
         GameObject bulletGO = (GameObject)Instantiate(_bulletPrefabs, _firePoint.position, _firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
         {
             bullet.Seek(_target);
         }
+
+        _animator.SetTrigger("isFiring");
     }
 
 

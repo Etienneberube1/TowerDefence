@@ -21,6 +21,8 @@ public class RocketTurret : Turret
     }
     protected override void Shoot()
     {
+        _animator.SetTrigger("isFiring");
+
         GameObject effect = Instantiate(_fireEffect, _firePoint.position, transform.rotation);
         Destroy(effect, 0.3f);
 

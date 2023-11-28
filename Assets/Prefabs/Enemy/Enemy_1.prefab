@@ -391,7 +391,6 @@ GameObject:
   - component: {fileID: 1695502807786446131}
   - component: {fileID: 1695502807779455699}
   - component: {fileID: -2905215360622910753}
-  - component: {fileID: 1695922726424351653}
   m_Layer: 9
   m_Name: Enemy_1
   m_TagString: Enemy
@@ -453,27 +452,6 @@ MonoBehaviour:
   _health: 50
   _GoldAmount: 70
   rotationSpeed: 5
---- !u!65 &1695922726424351653
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1695502807786733843}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1.3373767, z: 1}
-  m_Center: {x: 0, y: 1.5072196, z: 0}
 --- !u!1 &1695502807786733845
 GameObject:
   m_ObjectHideFlags: 0

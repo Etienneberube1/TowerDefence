@@ -846,7 +846,6 @@ GameObject:
   - component: {fileID: 4882590064214274}
   - component: {fileID: 95528395651247964}
   - component: {fileID: -2631211153470501123}
-  - component: {fileID: 4895380845881713300}
   m_Layer: 9
   m_Name: TurtleShell
   m_TagString: Enemy
@@ -908,27 +907,6 @@ MonoBehaviour:
   _health: 50
   _GoldAmount: 95
   rotationSpeed: 5
---- !u!65 &4895380845881713300
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837317425425208}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1.2535123, z: 1}
-  m_Center: {x: 0, y: 0.5069698, z: 0}
 --- !u!1 &1914324128724412
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,10 +12,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        // Lock the cursor to the center of the screen
-        Cursor.lockState = CursorLockMode.Locked;
-        // Hide the cursor
-        Cursor.visible = false;
+        HideCursor();   
 
         UIManager.Instance.ChangeHealth(_currentHealth);
         UIManager.Instance.changeGold(_currency);
@@ -26,6 +23,22 @@ public class GameManager : Singleton<GameManager>
         if (_currentHealth <= 0) {
             SceneManager.LoadScene("GameOver_Scene");
         }    
+    }
+
+    public void HideCursor()
+    {
+        // Lock the cursor to the center of the screen
+        Cursor.lockState = CursorLockMode.Locked;
+        // Hide the cursor
+        Cursor.visible = false;
+    }
+    public void ShowCursor() 
+    {
+        // Lock the cursor to the center of the screen
+        Cursor.lockState = CursorLockMode.None;
+        // Hide the cursor
+        Cursor.visible = true;
+
     }
 
 
