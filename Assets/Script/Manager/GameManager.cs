@@ -6,14 +6,40 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    public event Action<float> OnEnemyKill;
+
     [Header("Game Stats")]
     [SerializeField] private float _currency = 0;
     [SerializeField] private float _currentHealth = 0;
     [SerializeField] private float _currentTotalRating = 0;
 
 
-    public event Action<float> OnEnemyKill; 
-    
+
+    private List<Enemy> activeEnemies = new List<Enemy>();
+
+
+    public void RegisterEnemy(Enemy enemy)
+    {
+        if (!activeEnemies.Contains(enemy))
+        {
+            activeEnemies.Add(enemy);
+        }
+    }
+
+    public void UnregisterEnemy(Enemy enemy)
+    {
+        activeEnemies.Remove(enemy);
+    }
+
+    public List<Enemy> GetActiveEnemies()
+    {
+        return activeEnemies;
+    }
+
+
+
+
+
     private void Start()
     {
         HideCursor();   

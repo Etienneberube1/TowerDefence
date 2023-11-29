@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 6461484475136916098}
   - component: {fileID: 1528584912366435649}
   - component: {fileID: 6386150113754921818}
-  - component: {fileID: 8552470356063592931}
   - component: {fileID: 612663751930904415}
   - component: {fileID: -8708336375306925971}
-  - component: {fileID: -1943888420690293811}
+  - component: {fileID: 4087668503296599327}
   m_Layer: 0
   m_Name: BaseBullet
   m_TagString: Untagged
@@ -87,21 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8552470356063592931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7291389015175210372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5c187b59d7834488c0ecac04c87473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 10
-  _damage: 15
-  _bulletImpactEffect: {fileID: 5625488604758637415, guid: 2b864e23a3747724aaa12a0cc0bcd956, type: 3}
 --- !u!114 &612663751930904415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,8 +131,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &-1943888420690293811
-BoxCollider:
+--- !u!135 &4087668503296599327
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -166,5 +150,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.11589611, y: 0.13382527, z: 0.23302914}
-  m_Center: {x: 0, y: 0.00000001490116, z: 0.01848781}
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

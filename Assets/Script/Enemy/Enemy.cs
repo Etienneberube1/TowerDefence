@@ -82,7 +82,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        GameManager.Instance.RegisterEnemy(this);
+    }
 
+    private void OnDisable()
+    {
+        GameManager.Instance.UnregisterEnemy(this);
+    }
 
     private void GetNextPoint()
     {

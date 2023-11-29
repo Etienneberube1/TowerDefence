@@ -16,7 +16,7 @@ Command:
 
 [X] - Choix de map avec LevelSelect
 
-[] -Tutoriel
+[] - Tutoriel
 
 [] - Score
 

@@ -449,10 +449,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b4bd69b20e9e249a33c5ba479156f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 2
+  _speed: 1
   _health: 50
   _GoldAmount: 70
   _rotationSpeed: 5
+  _xpAmountOnDeath: 200
   _minItemToSpawn: 2
   _maxItemToSpawn: 6
   _itemToSpawn:

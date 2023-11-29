@@ -19,19 +19,20 @@ public class RocketTurret : Turret
             _quadraticCurve.pointB = _target;
         }
     }
-    protected override void Shoot()
-    {
-        _animator.SetTrigger("isFiring");
 
-        GameObject effect = Instantiate(_fireEffect, _firePoint.position, transform.rotation);
-        Destroy(effect, 0.3f);
+    //protected override void Shoot()
+    //{
+    //    _animator.SetTrigger("isFiring");
 
-        GameObject rocketGO = (GameObject)Instantiate(_bulletPrefabs, _firePoint.position, _firePoint.rotation);
-        Rocket rocket = rocketGO.GetComponent<Rocket>();
+    //    GameObject effect = Instantiate(_fireEffect, _firePoint.position, transform.rotation);
+    //    Destroy(effect, 0.3f);
 
-        if (rocket != null)
-        {
-            rocket.seek(_target, _quadraticCurve);
-        }
-    }
+    //    GameObject rocketGO = (GameObject)Instantiate(_bulletPrefabs, _firePoint.position, _firePoint.rotation);
+    //    Rocket rocket = rocketGO.GetComponent<Rocket>();
+
+    //    if (rocket != null)
+    //    {
+    //        rocket.seek(_target, _quadraticCurve);
+    //    }
+    //}
 }
