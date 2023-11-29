@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -46,7 +47,19 @@ public class HUD : MonoBehaviour
         UIManager.Instance.SendWave();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            _ToggleWaveSend.isOn = !_ToggleWaveSend.isOn;
+            OnToggleWaveSend();
+        }
 
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            SendWave();
+        }
+    }
 
     private void OnDestroy()
     {

@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _health = 50;
     [SerializeField] private float _GoldAmount = 150;
     [SerializeField] private float _rotationSpeed = 5.0f;
-
+    [SerializeField] private float _xpAmountOnDeath = 20.0f;
 
     [SerializeField] private float _minItemToSpawn = 2.0f;
     [SerializeField] private float _maxItemToSpawn = 6.0f;
@@ -61,7 +61,8 @@ public class Enemy : MonoBehaviour
     private void Dead()
     {
         GameManager.Instance.AddCurrency(_GoldAmount);
-        LunchCurrency();
+        GameManager.Instance.GiveXP(_xpAmountOnDeath);
+        //LunchCurrency();
         Destroy(gameObject, 0.2f);
     }
 

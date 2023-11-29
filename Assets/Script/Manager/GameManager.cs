@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float _currentHealth = 0;
     [SerializeField] private float _currentTotalRating = 0;
 
+
+    public event Action<float> OnEnemyKill; 
+    
     private void Start()
     {
         HideCursor();   
@@ -41,6 +45,11 @@ public class GameManager : Singleton<GameManager>
 
     }
 
+
+    public void GiveXP(float XP_amount)
+    {
+        OnEnemyKill?.Invoke(XP_amount);
+    }
 
     public void AddCurrency(float amount)
     {

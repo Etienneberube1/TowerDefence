@@ -116,6 +116,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 2.78
       objectReference: {fileID: 0}
+    - target: {fileID: 33419045221371588, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 244fb059f50befd48bb3f84ce986462d, type: 3}
+    - target: {fileID: 33812664879680928, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 4d29891228ba82948a30e700aad7352b, type: 3}
     - target: {fileID: 199679998326995456, guid: 061aa17254350af4d90b05f91efd65a8, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -163,14 +171,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _range: 4
   _fireRate: 1.7
-  _turretDmg: 15
+  _damage: 0
   _turnSpeed: 30
-  _turretValue: 150
+  _value: 0
+  _maxXpAmount: 0
   _bulletPrefabs: {fileID: 7291389015175210372, guid: f8243dd34d6bdae49975a0960a39539b, type: 3}
-  _enemyTag: Enemy
   _towerHead: {fileID: 5994934244725615912}
   _firePoint: {fileID: 5993550949599346794}
   _spawnParticleEffect: {fileID: 8263428832195714075, guid: a96dad5c46057fa41a6581f9d89465ca, type: 3}
+  _turretsVisual:
+  - {fileID: 5996560388117568680}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!95 &-3547297545594346214
 Animator:
   serializedVersion: 5
@@ -211,5 +223,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.91501087
+  m_Center: {x: 0, y: 0.41501075, z: 0}

@@ -10,3 +10,24 @@ Command:
 - GiveHealth "float amount"
 
 
+-----------------------------------------
+
+[X] - Choix de démarrer la wave
+
+[X] - Choix de map avec LevelSelect
+
+[] -Tutoriel
+
+[] - Score
+
+[] - Upgrade de tours
+
+[] - Upgrade d'ennemis
+
+[] - Upgrade de waves
+
+[] - Save System avec Highscore (étoile sur les niveaux)
+
+[X] - Menu
+
+[] - Feedback visuels et sonores
