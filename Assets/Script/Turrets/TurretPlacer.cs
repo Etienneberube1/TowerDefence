@@ -40,6 +40,22 @@ public class TurretPlacer : MonoBehaviour
     {
         CheckInput();
         if (_isPreviewingTurret) { ShowTurretPreview(); }
+
+        // Check for cancel key
+        if (Input.GetKeyDown(KeyCode.X) && _isPreviewingTurret)
+        {
+            CancelTurretPlacement();
+        }
+    }
+    private void CancelTurretPlacement()
+    {
+        if (_turretPreview != null)
+        {
+            Destroy(_turretPreview);
+            _turretPreview = null;
+        }
+        _isPreviewingTurret = false;
+        GameManager.Instance.HideCursor();
     }
 
     private float GetCurrentTowerValue()
@@ -50,18 +66,26 @@ public class TurretPlacer : MonoBehaviour
 
         return currentTowerValue;
     }
+
     private void CheckTurretValue(TURRET_INDEX TURRET_INDEX)
     {
         if (GameManager.Instance.GetCurrency() >= GetCurrentTowerValue())
         {
             GameManager.Instance.ShowCursor();
 
+            // Reset and create a new turret preview
+            if (_turretPreview != null)
+            {
+                Destroy(_turretPreview);
+            }
+            _turretPreview = Instantiate(_turretsPrefabs[(int)TURRET_INDEX]);
+
             _CURRENT_TURRET_INDEX = TURRET_INDEX;
             _isPreviewingTurret = true;
         }
         else
         {
-            // display text for not enough money
+            // Display text for not enough money
         }
     }
     private void RemoveCurrency()
@@ -70,19 +94,21 @@ public class TurretPlacer : MonoBehaviour
     }
 
 
-
     private void CheckInput()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            CancelTurretPlacement();
             CheckTurretValue(TURRET_INDEX.BASE_TURRET);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
+            CancelTurretPlacement();
             CheckTurretValue(TURRET_INDEX.ROCKET_TURRET);
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
+            CancelTurretPlacement();
             CheckTurretValue(TURRET_INDEX.LASER_TURRET);
         }
     }
@@ -175,6 +201,7 @@ public class TurretPlacer : MonoBehaviour
         {
             // Activate the turret script
             turretComponent.enabled = true;
+            CancelTurretPlacement();
         }
         else
         {

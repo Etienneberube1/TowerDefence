@@ -456,12 +456,12 @@ MonoBehaviour:
   _range: 4
   _fireRate: 1
   _minFireRate: 0.18
-  _damage: 15
+  _damage: 25
   _turnSpeed: 30
   _value: 150
   _bulletSpeed: 10
   _currentLevel: 1
-  _xpToNextLevel: 200
+  _xpToNextLevel: 50
   _maxLevel: 15
   _bulletPrefabs: {fileID: 1113185813539062066, guid: 8e08af3927b372f44b894231b78c8cd4, type: 3}
   _towerHead: {fileID: 5994934244725615912}

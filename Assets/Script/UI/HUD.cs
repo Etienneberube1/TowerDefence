@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+
 public class HUD : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _HPText;
@@ -12,6 +14,17 @@ public class HUD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _TimerText;
     [SerializeField] private Toggle _ToggleWaveSend;
 
+
+    [SerializeField] private GameObject _BaseTuretPricePanel;
+    [SerializeField] private GameObject _RocketTuretPricePanel;
+    [SerializeField] private GameObject _LaserTuretPricePanel;
+
+    [SerializeField] private TextMeshProUGUI _baseTuretPrice;
+    [SerializeField] private TextMeshProUGUI _rocketTuretPrice;
+    [SerializeField] private TextMeshProUGUI _laserTuretPrice;
+
+
+
     private bool _toggleWaveSpawnBool = false;
     private void Awake()
     {
@@ -19,10 +32,13 @@ public class HUD : MonoBehaviour
         UIManager.Instance.OnTimeChange += OnTimerChange;
         UIManager.Instance.OnGoldChange += OnGoldChange;
         UIManager.Instance.OnWaveChange += OnWaveChange;
+
     }
+    
+
     private void OnHpChange(float CurrentHP)
     {
-        _HPText.text = ($"Life: {(CurrentHP)}");
+        _HPText.text = ($"{(CurrentHP)}");
     }
     private void OnWaveChange(int currentWave)
     {
@@ -34,7 +50,7 @@ public class HUD : MonoBehaviour
     }
     private void OnGoldChange(float currentCurrency)
     {
-        _GoldText.text = ($"Gold: {(currentCurrency)}");
+        _GoldText.text = ($"{(currentCurrency)}");
     }
 
     public void OnToggleWaveSend()

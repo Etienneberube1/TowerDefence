@@ -11,11 +11,11 @@ public class UIManager : Singleton<UIManager>
     public event Action<float> OnGoldChange;
     public event Action<float> OnTimeChange;
     public event Action<int> OnWaveChange;
-    public event Action<bool> OnUiChange;
 
     private WaveSpawner waveSpawner;
 
     Animator animator;
+
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -28,10 +28,6 @@ public class UIManager : Singleton<UIManager>
         waveSpawner = ws;
     }
 
-    public void UpdateTurretUI(bool enableUI)
-    {
-        OnUiChange?.Invoke(enableUI);
-    }
     public void ChangeHealth(float currentHp)
     {
         OnHpChange?.Invoke(currentHp);
@@ -70,7 +66,7 @@ public class UIManager : Singleton<UIManager>
     {
         animator.SetBool("fade_in", true);
 
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(1f);
 
         animator.SetBool("fade_in", false);
 
@@ -81,7 +77,7 @@ public class UIManager : Singleton<UIManager>
     {
         animator.SetBool("fade_out", true);
 
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(1f);
 
         animator.SetBool("fade_out", false);
 

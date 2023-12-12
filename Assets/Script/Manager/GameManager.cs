@@ -10,7 +10,9 @@ public class GameManager : Singleton<GameManager>
 
     [Header("Game Stats")]
     [SerializeField] private float _currency = 0;
-    [SerializeField] private float _currentHealth = 0;
+    private float _currentCurrency = 0;
+    [SerializeField] private float _health = 0;
+    private float _currentHealth = 0;
     [SerializeField] private float _currentTotalRating = 0;
 
 
@@ -42,19 +44,40 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        HideCursor();   
+        HideCursor();
+
+        _currentHealth = _health;
+        _currentCurrency = _currency;
 
         UIManager.Instance.ChangeHealth(_currentHealth);
-        UIManager.Instance.changeGold(_currency);
+        UIManager.Instance.changeGold(_currentCurrency);
     }
 
     private void Update()
     {
         if (_currentHealth <= 0) {
-            SceneManager.LoadScene("GameOver_Scene");
-        }    
-    }
+            ShowCursor();
+            // Check if the current active scene is not the GameOver scene
+            if (SceneManager.GetActiveScene().name != "GameOver_Scene")
+            {
+                _currentHealth = _health;
+                _currentCurrency = _currency;
+                StartCoroutine(GameOverCoroutine());
+            }
+        }
 
+        Debug.Log(_currentCurrency);
+    }
+    private IEnumerator GameOverCoroutine()
+    {
+        UIManager.Instance.FadeIn();
+
+
+        yield return new WaitForSeconds(1f);
+
+        SceneManager.LoadScene("GameOver_Scene");
+
+    }
     public void HideCursor()
     {
         // Lock the cursor to the center of the screen
@@ -79,17 +102,19 @@ public class GameManager : Singleton<GameManager>
 
     public void AddCurrency(float amount)
     {
-        _currency += amount;
-        UIManager.Instance.changeGold(_currency);
+        _currentCurrency += amount;
+        UIManager.Instance.changeGold(_currentCurrency);
+
     }
     public void RemoveCurrency(float amount) 
     {
-        _currency -= amount;
-        UIManager.Instance.changeGold(_currency);
+        _currentCurrency -= amount;
+
+        UIManager.Instance.changeGold(_currentCurrency);
     }
     public float GetCurrency()
     {
-        return _currency;
+        return _currentCurrency;
     }
     public float GetCurrentRating()
     {

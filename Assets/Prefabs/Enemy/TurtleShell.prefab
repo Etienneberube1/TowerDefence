@@ -905,7 +905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
-  _health: 100
+  _health: 60
   _GoldAmount: 95
   _rotationSpeed: 5
   _xpAmountOnDeath: 400

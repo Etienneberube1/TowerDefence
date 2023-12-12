@@ -29,7 +29,7 @@ public class RocketTurret : Turret
         GameObject rocketGO = base.Shoot();
 
         _quadraticCurve.pointA = _firePoints[_nextFirePointIndex].transform;
-
+        _sampleTime = 0;
 
         return rocketGO;
     }

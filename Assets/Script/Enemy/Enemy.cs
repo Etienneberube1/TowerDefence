@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     private int _wayPointIndex = 0;
     public float _getEnemyHealth { get { return _health; } }
 
+
     private void Start()
     {
         _target = WayPoints.Instance.points[0];
@@ -27,7 +28,10 @@ public class Enemy : MonoBehaviour
         Movement();
     }
 
-
+    public void SetHealth(float newHealth)
+    {
+        _health = newHealth;
+    }
     private void Movement()
     {
         Vector3 dir = _target.position - transform.position;
@@ -48,39 +52,60 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
     public void TakeDamage(float dmg)
     {
         _health -= dmg;
+
+        // Turn on emission
+        SetEmission(true);
+
+        // Turn off emission after 0.3 seconds
+        StartCoroutine(ResetEmissionAfterDelay(0.1f));
+
         if (_health <= 0)
         {
             Dead();
         }
-        Debug.Log(_health);
+    }
+
+    private IEnumerator ResetEmissionAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SetEmission(false);
+    }
+
+    private void SetEmission(bool shouldEmit)
+    {
+        Renderer renderer = GetComponentInChildren<Renderer>(); // Assuming the Renderer is on a child GameObject
+        if (renderer != null)
+        {
+            Material mat = renderer.material;
+            if (mat != null)
+            {
+                if (shouldEmit)
+                {
+                    // Turn on emission
+                    mat.EnableKeyword("_EMISSION");
+                    mat.SetColor("_EmissionColor", Color.white); // Set the emission color to red, for example
+                }
+                else
+                {
+                    // Turn off emission
+                    mat.DisableKeyword("_EMISSION");
+                }
+            }
+        }
     }
 
     private void Dead()
     {
         GameManager.Instance.AddCurrency(_GoldAmount);
-        GameManager.Instance.GiveXP(_xpAmountOnDeath);
+        //GameManager.Instance.GiveXP(_xpAmountOnDeath);
         //LunchCurrency();
         Destroy(gameObject, 0.2f);
     }
 
-    private void LunchCurrency()
-    {
-        float nbItemToSpawn;
-        nbItemToSpawn = Random.Range(_minItemToSpawn, _maxItemToSpawn);
-
-        for (int i = 0; i < nbItemToSpawn; i++)
-        {
-            int random = Random.Range(0, _itemToSpawn.Length);
-
-            GameObject item = Instantiate(_itemToSpawn[random], transform.position, transform.rotation);
-            item.GetComponent<Rigidbody>().AddForce(Vector3.up  , ForceMode.Impulse);
-            Destroy(item, 0.3f);
-
-        }
-    }
 
     private void OnEnable()
     {

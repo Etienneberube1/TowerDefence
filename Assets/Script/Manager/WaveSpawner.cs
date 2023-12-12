@@ -50,7 +50,21 @@ public class WaveSpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         int randomIndex = Random.Range(0, _enemyPrefabs.Length);
-        Instantiate(_enemyPrefabs[randomIndex], _spawnPoint.position, _spawnPoint.rotation);
+        Transform enemyTransform = Instantiate(_enemyPrefabs[randomIndex], _spawnPoint.position, _spawnPoint.rotation);
+
+        Enemy enemy = enemyTransform.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            float scaledHealth = CalculateHealthBasedOnWave(_waveIndex);
+            enemy.SetHealth(scaledHealth);
+        }
+    }
+    private float CalculateHealthBasedOnWave(int waveIndex)
+    {
+        // Example formula: base health + an increase per wave
+        float baseHealth = 50;
+        float healthIncreasePerWave = 20;
+        return baseHealth + (healthIncreasePerWave * waveIndex);
     }
 
     public void SetToggle(bool toggle)

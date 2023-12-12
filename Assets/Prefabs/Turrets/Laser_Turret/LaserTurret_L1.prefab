@@ -264,7 +264,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5681591553778974085}
@@ -310,12 +310,12 @@ MonoBehaviour:
   _range: 4
   _fireRate: 0.2
   _minFireRate: 0.09
-  _damage: 3
+  _damage: 5
   _turnSpeed: 15
-  _value: 300
+  _value: 450
   _bulletSpeed: 10
   _currentLevel: 1
-  _xpToNextLevel: 600
+  _xpToNextLevel: 150
   _maxLevel: 15
   _bulletPrefabs: {fileID: 4727988979226960795, guid: 12ed0e9d6baa0e549862ea0be290fbc2, type: 3}
   _towerHead: {fileID: 5578738464447746432}

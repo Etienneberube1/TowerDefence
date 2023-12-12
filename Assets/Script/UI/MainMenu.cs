@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+
 
 public class MainMenu : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class MainMenu : MonoBehaviour
 
     private float _sampleTime = 0f;
     private bool _hasStarted = false;
+
 
     private QuadraticCurve _quadraticCurve;
     private Animator _animator;
@@ -46,7 +49,7 @@ public class MainMenu : MonoBehaviour
 
         _hasStarted = true;
 
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(1f);
 
         SceneManager.LoadScene("Map_1");
 

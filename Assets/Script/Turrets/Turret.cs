@@ -122,7 +122,7 @@ public class Turret : MonoBehaviour
         UpdateTurretVisual(); // Set initial turret visual
 
 
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        InvokeRepeating("UpdateTarget", 0f, 0.3f);
         _animator = GetComponent<Animator>();
 
         GameObject effect = Instantiate(_spawnParticleEffect, transform.position, _spawnParticleEffect.transform.rotation);
@@ -207,6 +207,10 @@ public class Turret : MonoBehaviour
         if (enemy != null)
         {
             enemy.TakeDamage(_damage); // Make sure _damage is accessible here
+            if (enemy._getEnemyHealth <= 0)
+            {
+                GainXP(70);
+            }
         }
         Destroy(bullet);
     }

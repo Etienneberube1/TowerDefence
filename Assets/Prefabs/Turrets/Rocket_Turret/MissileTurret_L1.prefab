@@ -342,12 +342,12 @@ MonoBehaviour:
   _range: 4
   _fireRate: 1.5
   _minFireRate: 0.5
-  _damage: 25
+  _damage: 35
   _turnSpeed: 15
   _value: 300
   _bulletSpeed: 2
   _currentLevel: 1
-  _xpToNextLevel: 500
+  _xpToNextLevel: 100
   _maxLevel: 15
   _bulletPrefabs: {fileID: 1321523755478590229, guid: 6c96199a6728a75458fb0d378b03a1d5, type: 3}
   _towerHead: {fileID: 1508985652922060879}
@@ -447,6 +447,10 @@ PrefabInstance:
     - target: {fileID: 4255943197212978045, guid: 0d8e39f4fef3aca448ba387d58837b5d, type: 3}
       propertyPath: m_Name
       value: Turret_Visual
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255943197212978045, guid: 0d8e39f4fef3aca448ba387d58837b5d, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
