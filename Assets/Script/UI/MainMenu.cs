@@ -35,13 +35,21 @@ public class MainMenu : MonoBehaviour
     {
         _animator.SetTrigger("moveText");
         StartCoroutine(startGameCoroutine());
+
     }
 
     private IEnumerator startGameCoroutine()
     {
-        yield return new WaitForSeconds(1.0f);
+
+        yield return new WaitForSeconds(1f);
+        UIManager.Instance.FadeIn();
+
         _hasStarted = true;
-        //SceneManager.LoadScene("Map_1");
+
+        yield return new WaitForSeconds(1.3f);
+
+        SceneManager.LoadScene("Map_1");
+
     }
     public void OptionButton()
     {

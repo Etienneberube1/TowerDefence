@@ -21,7 +21,7 @@ public class QuadraticCurve : MonoBehaviour
         if (curveControl == null || pointA == null || pointB == null) return;
 
         for (int i = 0; i < 300; i++) {
-            Gizmos.DrawWireSphere(evaluate(i / 300f), 5f);
+            Gizmos.DrawWireSphere(evaluate(i / 20f), 0.01f);
         }
     }
 }

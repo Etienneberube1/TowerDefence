@@ -16,16 +16,16 @@ public class Turret : MonoBehaviour
 
 
     [SerializeField] private AnimationCurve _statGrowthCurve;
-    [SerializeField] protected float _range = 0f;
-    [SerializeField] protected float _fireRate = 0f;
+    [SerializeField] protected float _range = 0f; // Range of enemy detection
+    [SerializeField] protected float _fireRate = 0f; // Speed at witch the turret fire
     [SerializeField] private float _minFireRate = 0f; // Minimum fire rate
-    [SerializeField] protected float _damage = 0f;
-    [SerializeField] protected float _turnSpeed = 0f;
-    [SerializeField] protected float _value = 0f;
-    [SerializeField] private float _bulletSpeed = 5.0f;
-    [SerializeField] private int _currentLevel = 0;
+    [SerializeField] protected float _damage = 0f; // turret dmg
+    [SerializeField] protected float _turnSpeed = 0f; // Speed at witch the turret head turn
+    [SerializeField] protected float _value = 0f; // Price of the turret
+    [SerializeField] protected float _bulletSpeed = 5.0f; // Speed of the bullet
+    [SerializeField] private int _currentLevel = 0; // Current level of the turret
     [SerializeField] private float _xpToNextLevel = 0f; // Initial XP required to reach the next level
-    [SerializeField] private int _maxLevel = 0;
+    [SerializeField] private int _maxLevel = 0; // the cap of the turret level
 
     protected float _currentXP = 0f;
     protected float _fireCountDown = 0f;
@@ -50,10 +50,10 @@ public class Turret : MonoBehaviour
 
     [SerializeField] protected GameObject _bulletPrefabs;
     [SerializeField] protected Transform _towerHead;
-    [SerializeField] private GameObject _currentTurretVisual; // Current visual for the turret
+    [SerializeField] protected GameObject _currentTurretVisual; // Current visual for the turret
     [SerializeField] private TextMeshProUGUI _levelText;
-    private List<Transform> _firePoints = new List<Transform>();
-    private int _nextFirePointIndex = 0;
+    protected List<Transform> _firePoints = new List<Transform>();
+    protected int _nextFirePointIndex = 0;
 
     [Space(20)]
     [Header("=============================================")]
@@ -256,7 +256,7 @@ public class Turret : MonoBehaviour
 
         Transform firePoint = _firePoints[_nextFirePointIndex];
         GameObject bulletGO = Instantiate(_bulletPrefabs, firePoint.position, firePoint.rotation);
-        _animator.SetTrigger("isFiring");
+       // _animator.SetTrigger("isFiring");
 
         // Prepare the index for the next fire point
         _nextFirePointIndex = (_nextFirePointIndex + 1) % _firePoints.Count;
@@ -303,7 +303,7 @@ public class Turret : MonoBehaviour
     {
         _levelText.text = "Level: " + _currentLevel;
         _currentLevel++;
-        _xpToNextLevel *= 1.2f; // Example logic for next level XP
+        _xpToNextLevel *= 1.2f;
 
         UpdateStats();
         UpdateTurretVisual();
@@ -315,7 +315,6 @@ public class Turret : MonoBehaviour
         float levelFactor = (float)_currentLevel / _maxLevel;
 
         // Increasing damage as the level goes up. 
-        // You can adjust the multiplier or use an AnimationCurve if needed.
         _damage = _damage + (levelFactor * _damage);
 
         // Decreasing fire rate (increasing delay between shots) as the level goes up.
@@ -323,9 +322,9 @@ public class Turret : MonoBehaviour
         _fireRate = Mathf.Max(_fireRate - (levelFactor * _fireRate * 0.5f), _minFireRate);
     }
 
-    private void UpdateTurretVisual()
+    protected virtual void UpdateTurretVisual()
     {
-        if (_currentLevel % 5 == 1) // Change visual only at levels 1, 6, 11, etc.
+        if (_currentLevel % 5 == 1) // Change visual only at levels 1, 6, 11
         {
             int visualIndex = (_currentLevel - 1) / 5;
             if (visualIndex < _turretsVisual.Count)
@@ -334,11 +333,13 @@ public class Turret : MonoBehaviour
                 if (newVisual != null)
                 {
                     if (_currentTurretVisual != null)
+                    {
                         Destroy(_currentTurretVisual);
 
-                    _currentTurretVisual = Instantiate(newVisual, transform.position, transform.rotation, transform);
-                    UpdateFirePoints(); // Update fire points for the new visual
-                    UpdateTowerHead(); // Update the tower head for the new visual
+                        _currentTurretVisual = Instantiate(newVisual, transform.position , transform.rotation, transform);
+                        UpdateFirePoints(); // Update fire points for the new visual
+                        UpdateTowerHead(); // Update the tower head for the new visual
+                    }
                 }
                 else
                 {
