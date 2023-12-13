@@ -9,6 +9,7 @@ public class RocketTurret : Turret
     [Space(20)]
 
     [SerializeField] private float _explosionRadius;
+    [SerializeField] private GameObject _explosionEffect;
     private float _sampleTime = 0f;
 
     [SerializeField] private QuadraticCurve _quadraticCurve;
@@ -49,6 +50,7 @@ public class RocketTurret : Turret
         bullet.transform.forward = _quadraticCurve.evaluate(_sampleTime + 0.01f) - transform.position;
 
         bullet.transform.LookAt(target);
+
         if (_sampleTime >= 1)
         {
             RocketImpact(bullet);
@@ -60,11 +62,15 @@ public class RocketTurret : Turret
     {
         ExplosionAoE(_target.transform.position, _explosionRadius, bullet);
 
+        GameObject effect = Instantiate(_explosionEffect, bullet.transform.position, _explosionEffect.transform.rotation);
+        Destroy(effect, 0.3f);
+
     }
 
     private void ExplosionAoE(Vector3 center, float radius, GameObject bullet)
     {
         Collider[] hitColliders = Physics.OverlapSphere(center, radius);
+
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.CompareTag("Enemy"))
@@ -73,13 +79,20 @@ public class RocketTurret : Turret
                 if (enemy != null)
                 {
                     enemy.TakeDamage(_damage);
+
+                    if (enemy._getEnemyHealth <= 0)
+                    {
+                        GainXP(enemy._xpAmount);
+                    }
+
+
                     Destroy(bullet);
                 }
             }
         }
 
-    }
 
+    }
     protected override void UpdateTurretVisual()
     {
         base.UpdateTurretVisual();

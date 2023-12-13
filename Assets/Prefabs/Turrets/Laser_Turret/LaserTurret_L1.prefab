@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Level: 1'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 83ec3cee39d91f94c97771babcb883a4, type: 2}
-  m_sharedMaterial: {fileID: 78597095549474845, guid: 83ec3cee39d91f94c97771babcb883a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9174d38b66dc579418737e7c129ebdf3, type: 2}
+  m_sharedMaterial: {fileID: 5522948072821738805, guid: 9174d38b66dc579418737e7c129ebdf3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -296,8 +296,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 0.50235856
+      time: 0.9956897
+      value: 0.57075477
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -313,7 +313,7 @@ MonoBehaviour:
   _damage: 5
   _turnSpeed: 15
   _value: 450
-  _bulletSpeed: 10
+  _bulletSpeed: 20
   _currentLevel: 1
   _xpToNextLevel: 150
   _maxLevel: 15
@@ -321,6 +321,7 @@ MonoBehaviour:
   _towerHead: {fileID: 5578738464447746432}
   _currentTurretVisual: {fileID: 7702533328584442006}
   _levelText: {fileID: 3582786976792049803}
+  _canvas: {fileID: 1412554346788764044}
   _turretsVisual:
   - {fileID: 4687641758246020290, guid: 4a562bd7574f25d4ba3302cff42e2892, type: 3}
   - {fileID: 3872827115310842775, guid: 51a24699cfb95394fb04fb32df89ff51, type: 3}

@@ -451,7 +451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 2.3
   _health: 20
-  _GoldAmount: 70
+  _goldAmount: 150
   _rotationSpeed: 5
   _xpAmountOnDeath: 200
   _minItemToSpawn: 2

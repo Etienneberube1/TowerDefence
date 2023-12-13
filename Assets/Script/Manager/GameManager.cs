@@ -15,6 +15,8 @@ public class GameManager : Singleton<GameManager>
     private float _currentHealth = 0;
     [SerializeField] private float _currentTotalRating = 0;
 
+    [SerializeField] private Camera _camera;
+
 
 
     private List<Enemy> activeEnemies = new List<Enemy>();
@@ -40,10 +42,15 @@ public class GameManager : Singleton<GameManager>
 
 
 
-
+    public Camera GetCameraRef()
+    {
+        _camera = GameObject.FindGameObjectWithTag("Camera").GetComponent<Camera>();
+        return _camera;
+    }
 
     private void Start()
     {
+
         HideCursor();
 
         _currentHealth = _health;
@@ -51,23 +58,34 @@ public class GameManager : Singleton<GameManager>
 
         UIManager.Instance.ChangeHealth(_currentHealth);
         UIManager.Instance.changeGold(_currentCurrency);
+
     }
 
     private void Update()
     {
-        if (_currentHealth <= 0) {
+
+        if (_currentHealth <= 0)
+        {
             ShowCursor();
+
             // Check if the current active scene is not the GameOver scene
             if (SceneManager.GetActiveScene().name != "GameOver_Scene")
             {
-                _currentHealth = _health;
-                _currentCurrency = _currency;
+                ResetValue();
                 StartCoroutine(GameOverCoroutine());
             }
         }
 
-        Debug.Log(_currentCurrency);
     }
+
+    public void ResetValue()
+    {
+        _currentHealth = _health;
+        _currentCurrency = _currency;
+        activeEnemies.Clear();
+
+    }
+
     private IEnumerator GameOverCoroutine()
     {
         UIManager.Instance.FadeIn();
@@ -85,7 +103,7 @@ public class GameManager : Singleton<GameManager>
         // Hide the cursor
         Cursor.visible = false;
     }
-    public void ShowCursor() 
+    public void ShowCursor()
     {
         // Lock the cursor to the center of the screen
         Cursor.lockState = CursorLockMode.None;
@@ -106,7 +124,7 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.changeGold(_currentCurrency);
 
     }
-    public void RemoveCurrency(float amount) 
+    public void RemoveCurrency(float amount)
     {
         _currentCurrency -= amount;
 

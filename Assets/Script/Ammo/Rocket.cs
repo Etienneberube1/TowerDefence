@@ -13,7 +13,6 @@ public class Rocket : MonoBehaviour
     private float _sampleTime = 0f;
     private QuadraticCurve _quadraticCurve;
     private Transform _target;
-    private bool asReached = false;
 
     void Start()
     {

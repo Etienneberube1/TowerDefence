@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Planet : MonoBehaviour
 {
-    [SerializeField] private float _selfRotateSpeed = 10f;
     [SerializeField] private float _rotateSpeed = 10f;
     [SerializeField] private GameObject _planetToRotateAround;
     [SerializeField] private bool _canUp = false;

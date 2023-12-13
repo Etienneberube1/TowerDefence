@@ -5,18 +5,17 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed = 10;
     [SerializeField] private float _health = 50;
-    [SerializeField] private float _GoldAmount = 150;
+    [SerializeField] private float _goldAmount = 150;
     [SerializeField] private float _rotationSpeed = 5.0f;
     [SerializeField] private float _xpAmountOnDeath = 20.0f;
 
-    [SerializeField] private float _minItemToSpawn = 2.0f;
-    [SerializeField] private float _maxItemToSpawn = 6.0f;
 
     [SerializeField] private GameObject[] _itemToSpawn;
     private Transform _target;
     private int _wayPointIndex = 0;
-    public float _getEnemyHealth { get { return _health; } }
 
+    public float _getEnemyHealth { get { return _health; } }
+    public float _xpAmount { get { return _xpAmountOnDeath; } }
 
     private void Start()
     {
@@ -100,10 +99,8 @@ public class Enemy : MonoBehaviour
 
     private void Dead()
     {
-        GameManager.Instance.AddCurrency(_GoldAmount);
-        //GameManager.Instance.GiveXP(_xpAmountOnDeath);
-        //LunchCurrency();
-        Destroy(gameObject, 0.2f);
+        GameManager.Instance.AddCurrency(_goldAmount);
+        Destroy(gameObject);
     }
 
 

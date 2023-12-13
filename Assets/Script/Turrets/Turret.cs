@@ -1,18 +1,12 @@
-using JetBrains.Annotations;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEditor.Toolbars;
 using TMPro;
-
+using UnityEditor;
 public class Turret : MonoBehaviour
 {
-    [Space(20)]
-    [Header("===============TURRET_STATS===============")]
-    [Space(20)]
+    //[Space(20)]
+    //[Header("===============TURRET_STATS===============")]
+    //[Space(20)]
 
 
     [SerializeField] private AnimationCurve _statGrowthCurve;
@@ -34,71 +28,70 @@ public class Turret : MonoBehaviour
     public float GetTurretValue { get { return _value; } }
 
 
-    [Space(20)]
-    [Header("=============================================")]
-    [Space(20)]
+    //[Space(20)]
+    //[Header("=============================================")]
+    //[Space(20)]
 
 
 
 
 
 
-    [Space(20)]
-    [Header("===============UNITY_FIELDS===============")]
-    [Space(20)]
+    //[Space(20)]
+    //[Header("===============UNITY_FIELDS===============")]
+    //[Space(20)]
 
 
     [SerializeField] protected GameObject _bulletPrefabs;
     [SerializeField] protected Transform _towerHead;
     [SerializeField] protected GameObject _currentTurretVisual; // Current visual for the turret
     [SerializeField] private TextMeshProUGUI _levelText;
+    [SerializeField] private Canvas _canvas;
     protected List<Transform> _firePoints = new List<Transform>();
     protected int _nextFirePointIndex = 0;
 
-    [Space(20)]
-    [Header("=============================================")]
-    [Space(20)]
+    //[Space(20)]
+    //[Header("=============================================")]
+    //[Space(20)]
 
 
 
 
 
 
-    [Space(20)]
-    [Header("===============OBJECT_LIST===============")]
-    [Space(20)]
+    //[Space(20)]
+    //[Header("===============OBJECT_LIST===============")]
+    //[Space(20)]
 
 
     [SerializeField] protected List<GameObject> _turretsVisual = new List<GameObject>();
     private List<GameObject> _activeBullets = new List<GameObject>();
 
 
-    [Space(20)]
-    [Header("=============================================")]
-    [Space(20)]
+    //[Space(20)]
+    //[Header("=============================================")]
+    //[Space(20)]
 
 
 
 
 
-    [Space(20)]
-    [Header("===============PARTICLE_EFFECT===============")]
-    [Space(20)]
+    //[Space(20)]
+    //[Header("===============PARTICLE_EFFECT===============")]
+    //[Space(20)]
 
-
-    //[SerializeField] private GameObject _bulletImpactEffect;
     [SerializeField] protected GameObject _spawnParticleEffect;
 
 
-    [Space(20)]
-    [Header("=============================================")]
-    [Space(20)]
+    //[Space(20)]
+    //[Header("=============================================")]
+    //[Space(20)]
 
 
 
     protected Transform _target;
     protected Animator _animator;
-
+    private Camera _camera;
 
 
 
@@ -115,9 +108,16 @@ public class Turret : MonoBehaviour
         GameManager.Instance.OnEnemyKill -= GainXP;
     }
 
+    private void LateUpdate()
+    {
+        _canvas.transform.LookAt(transform.position + _camera.transform.rotation * Vector3.forward, _camera.transform.rotation * Vector3.up);
+    }
 
     protected virtual void Start()
     {
+        _canvas.worldCamera = GameManager.Instance.GetCameraRef();
+        _camera = GameManager.Instance.GetCameraRef();
+
         UpdateFirePoints(); // Initialize fire points
         UpdateTurretVisual(); // Set initial turret visual
 
@@ -209,7 +209,7 @@ public class Turret : MonoBehaviour
             enemy.TakeDamage(_damage); // Make sure _damage is accessible here
             if (enemy._getEnemyHealth <= 0)
             {
-                GainXP(70);
+                GainXP(enemy._xpAmount);
             }
         }
         Destroy(bullet);
@@ -232,6 +232,7 @@ public class Turret : MonoBehaviour
             GameObject bullet = Shoot();
             if (bullet != null)
                 _activeBullets.Add(bullet);
+
             _fireCountDown = _fireRate;
         }
         _fireCountDown -= Time.deltaTime;
@@ -292,7 +293,7 @@ public class Turret : MonoBehaviour
     }
 
 
-    private void GainXP(float XP_amount)
+    protected void GainXP(float XP_amount)
     {
         _currentXP += XP_amount;
         while (_currentXP >= _xpToNextLevel && _currentLevel < _maxLevel)
@@ -343,6 +344,10 @@ public class Turret : MonoBehaviour
                         _currentTurretVisual = Instantiate(newVisual, transform.position , transform.rotation, transform);
                         UpdateFirePoints(); // Update fire points for the new visual
                         UpdateTowerHead(); // Update the tower head for the new visual
+
+                        GameObject effect = Instantiate(_spawnParticleEffect, transform.position, _spawnParticleEffect.transform.rotation);
+                        Destroy(effect, 0.5f);
+
                     }
                 }
                 else

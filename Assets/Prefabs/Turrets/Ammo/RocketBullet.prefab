@@ -103,7 +103,7 @@ MonoBehaviour:
   muzzleParticle: {fileID: 1569006322450168, guid: 75cfaf6591c21e74191917c34643c61b, type: 3}
   trailParticles: []
   colliderRadius: 1
-  collideOffset: 0.098
+  collideOffset: 0.178
 --- !u!135 &-6517569912512327720
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -119,7 +119,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -147,7 +147,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
