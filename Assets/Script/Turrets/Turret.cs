@@ -150,13 +150,10 @@ public class Turret : MonoBehaviour
         _firePoints.Clear(); // Clear the existing list
         if (_currentTurretVisual != null)
         {
-            Debug.Log("Checking fire points in: " + _currentTurretVisual.name);
             AddFirePointsRecursive(_currentTurretVisual.transform);
-            Debug.Log("Total fire points found: " + _firePoints.Count);
         }
         else
         {
-            Debug.LogWarning("Current Turret Visual is null.");
         }
     }
 
@@ -167,7 +164,6 @@ public class Turret : MonoBehaviour
             if (child.CompareTag("FirePoint"))
             {
                 _firePoints.Add(child);
-                Debug.Log("Added FirePoint: " + child.name);
             }
 
             // Recursively add fire points from all children
@@ -200,8 +196,6 @@ public class Turret : MonoBehaviour
 
     private void BulletImpact(GameObject bullet, Transform target)
     {
-        //GameObject bulletEffect = Instantiate(_bulletImpactEffect, bullet.transform.position, bullet.transform.rotation);
-        //Destroy(bulletEffect, 0.15f);
 
         Enemy enemy = target.GetComponent<Enemy>();
         if (enemy != null)
@@ -252,7 +246,6 @@ public class Turret : MonoBehaviour
         // Check if there are any fire points available
         if (_firePoints.Count == 0)
         {
-            Debug.LogWarning("No fire points available.");
             return null;
         }
 
@@ -261,7 +254,6 @@ public class Turret : MonoBehaviour
 
         Transform firePoint = _firePoints[_nextFirePointIndex];
         GameObject bulletGO = Instantiate(_bulletPrefabs, firePoint.position, firePoint.rotation);
-       // _animator.SetTrigger("isFiring");
 
         // Prepare the index for the next fire point
         _nextFirePointIndex = (_nextFirePointIndex + 1) % _firePoints.Count;
@@ -306,12 +298,16 @@ public class Turret : MonoBehaviour
 
     private void LevelUp()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.EAudio.UpgradeSoundEffect);
+
         _levelText.text = "Level: " + _currentLevel;
         _currentLevel++;
         _xpToNextLevel *= 1.2f;
 
         UpdateStats();
         UpdateTurretVisual();
+
+
     }
 
 
@@ -348,11 +344,8 @@ public class Turret : MonoBehaviour
                         GameObject effect = Instantiate(_spawnParticleEffect, transform.position, _spawnParticleEffect.transform.rotation);
                         Destroy(effect, 0.5f);
 
+
                     }
-                }
-                else
-                {
-                    Debug.LogWarning($"Turret visual for level {_currentLevel} not found!");
                 }
             }
         }
@@ -367,14 +360,6 @@ public class Turret : MonoBehaviour
             {
                 _towerHead = foundTowerHead;
             }
-            else
-            {
-                Debug.LogError("Tower head not found in the current visual.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Current Turret Visual is null.");
         }
     }
 }

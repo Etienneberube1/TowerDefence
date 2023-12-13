@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private float _speed = 5.0f;
     [SerializeField] private GameObject _cam;
-
+    [SerializeField] private AudioClip _clip;
     private float _sampleTime = 0f;
     private bool _hasStarted = false;
 
@@ -36,6 +36,10 @@ public class MainMenu : MonoBehaviour
 
     public void StartGameButton()
     {
+        AudioSource audio = _cam.GetComponent<AudioSource>();
+        audio.clip = _clip;
+        audio.Play();
+
         _animator.SetTrigger("moveText");
         StartCoroutine(startGameCoroutine());
 
@@ -45,6 +49,7 @@ public class MainMenu : MonoBehaviour
     {
 
         yield return new WaitForSeconds(1f);
+
         UIManager.Instance.FadeIn();
 
         _hasStarted = true;

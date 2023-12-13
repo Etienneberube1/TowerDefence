@@ -104,11 +104,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 2
   _health: 45
-  _GoldAmount: 100
+  _goldAmount: 75
   _rotationSpeed: 5
-  _xpAmountOnDeath: 300
-  _minItemToSpawn: 2
-  _maxItemToSpawn: 6
+  _xpAmountOnDeath: 65
   _itemToSpawn:
   - {fileID: 1003510080570032, guid: ae927225eb07c0746ba259755211e4c0, type: 3}
   - {fileID: 1672053760939924, guid: 2acdc094e5db89f4a93aaee9828e8b6b, type: 3}

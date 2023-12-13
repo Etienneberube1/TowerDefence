@@ -140,6 +140,8 @@ public class TurretPlacer : MonoBehaviour
 
                 // creating a new turret 
                 PlaceTurret(hit.transform);
+
+                AudioManager.Instance.PlaySFX(AudioManager.EAudio.BuildSoundEffect);
             }
         }
     }
